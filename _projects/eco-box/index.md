@@ -7,7 +7,7 @@ skills:
   - Python / Image Processing
   - Hardware Integration
   - Raspberry Pi / Linux
-main-image: /_projects/ecobox/ecobox-hero.png
+main-image: /_projects/eco-box/ecobox-hero.png
 ---
 
 # EcoBox: E-Ink Information Dashboard
@@ -33,7 +33,7 @@ EcoBox is a sustainable, low-power smart display designed to show live web data 
 
 | CAD Design | Physical Assembly |
 | :---: | :---: |
-| ![CAD Render](/_projects/ecobox/autocad-design.png) | ![Final Build](/_projects/ecobox/final-build.png) |
+| ![CAD Render](/_projects/eco-box/autocad-design.png) | ![Final Build](/_projects/eco-box/final-build.png) |
 
 </details>
 
