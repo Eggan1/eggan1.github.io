@@ -21,7 +21,7 @@ description: >- # dont remove this line. this will ignore all new lines until th
   I am currently a sophomore majoring in Data Science with a minor in Economics at VinUniversity, Vietnan,
 # Place your profile image in /assets/images/profile-image/folder and edit the file name
 
-profile_image: ./assets/images/profile-image/prof_pic.jpg
+profile_image: .assets/images/profile-image/prof_pic.JPG
 
 # Link your resume
 # You can place your resume in assets/resume/{resume.pdf or add external link such as pdf saved in google drive 
