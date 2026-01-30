@@ -18,7 +18,8 @@ name: An Khanh Nguyen
 headline: Welcome to my page
 
 description: >- # dont remove this line. this will ignore all new lines until the next section
-  I am currently a sophomore majoring in Data Science with a minor in Economics at VinUniversity, Vietnan,
+  I am currently a sophomore majoring in Data Science with a minor in Economics at VinUniversity, Vietnam.
+  You can contact me through: 24an.nk@vinuni.edu.vn
 # Place your profile image in /assets/images/profile-image/folder and edit the file name
 
 profile_image: assets/images/profile-image/prof_pic.JPG
