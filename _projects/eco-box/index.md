@@ -28,12 +28,12 @@ EcoBox is a sustainable, low-power smart display designed to show live web data 
 ---
 
 ## 📸 Build Gallery
-<details>
-<summary><b>View Build Photos & CAD Renders (Click to Expand)</b></summary>
+<details open>
+<summary><b>View Build Photos (Click to Expand)</b></summary>
 
 | 1. AutoCAD Design | 2. Component Wiring | 3. Final Build |
-| :---: | :---: | :---: |
-| ![CAD Drawing](/_projects/eco-box/autocard-design.png) | ![Wiring Detail](/_projects/eco-box/final-build.png) | ![Finished Box](/_projects/eco-box/DAD.png) |
+| :--- | :--- | :--- |
+| <img src="autocard-design.png" width="200"> | <img src="final-build.png" width="200"> | <img src="DAD.png" width="200"> |
 
 </details>
 
