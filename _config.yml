@@ -11,14 +11,14 @@ title: An's website # This is what shows up in the tab of the browser
 
 
 
-# Hero Section
+---
+layout: home
 name: An Khanh Nguyen
 headline: Welcome to my page
-description: >- # dont remove this line. this will ignore all new lines until the next section
-  I am currently a sophomore majoring in Data Science with a minor in Economics at VinUniversity, Vietnan,
-
-# Place your profile image in /assets/images/profile-image/folder and edit the file name
+description: >-
+  I am currently a sophomore majoring in Data Science with a minor in Economics at VinUniversity, Vietnam.
 profile_image: ./assets/images/profile-image/prof_pic.jpeg
+---
 
 
 # Link your resume
