@@ -1,20 +1,24 @@
 ---
 layout: post
 title: Aviation 3D Modeling
-description: Precision 3D modeling of aircraft using CSG and Blender.
+description: Precision 3D modeling of aircraft using CSG and Blender. Features detailed aeronautical visualizations and technical animations.
 skills: 
   - CSG
   - Blender
   - Animations
+  - 3D Rendering
 
 main-image: /_projects/3D-modeling/DAD.png
 ---
 
-# Aviation 3D Modeling Project
+## Project Visualization
+{% include image-gallery.html images="DAD.png" height="500" %}
+<span style="font-size: 10px">Final high-fidelity render of the aircraft model.</span>
 
-![Main Aircraft Render](DAD.png)
+---
 
-Detailed documentation and technical insights are embedded below. 
+## Detailed Documentation
+Detailed technical insights and the project development process are embedded below via Google Docs.
 
 <div style="text-align: center;">
     <iframe 
@@ -26,3 +30,10 @@ Detailed documentation and technical insights are embedded below.
         Loading…
     </iframe>
 </div>
+
+---
+
+## Technical Skills Applied
+- **Blender:** Used for primary mesh creation and scene lighting.
+- **CSG (Constructive Solid Geometry):** Utilized for precise Boolean operations in mechanical parts.
+- **Animations:** Created flight surface movement sequences.
