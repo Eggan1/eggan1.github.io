@@ -6,9 +6,12 @@ skills:
   - CSG
   - Blender
   - Animations
+main-image: DAD.png
 ---
 
 # Aviation 3D Modeling Project
+
+![Main Aircraft Render](DAD.png)
 
 Detailed documentation and technical insights are embedded below. 
 
@@ -22,5 +25,3 @@ Detailed documentation and technical insights are embedded below.
         Loading…
     </iframe>
 </div>
-
----
