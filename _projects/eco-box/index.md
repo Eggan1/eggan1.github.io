@@ -10,7 +10,7 @@ skills:
   - Image Processing
   - Thermal Management
 
-main-image: /_projects/eco-box/DAD.png
+main-image: /_projects/eco-box/design.png
 ---
 
 ## Project Overview
@@ -20,10 +20,8 @@ The EcoBox was designed to provide a "distraction-free" data dashboard. The main
 
 ## Build Gallery
 ### Design & Assembly
-{% include image-gallery.html images="autocard-design.png, final-build.png, DAD.png" height="400" %}
-<span style="font-size: 10px">1. AutoCAD chassis design | 2. Component wiring and Pi integration | 3. Final display output</span>
-
-
+{% include image-gallery.html images="autocard-design.png, final-build.png" height="400" %}
+<span style="font-size: 10px">1. AutoCAD chassis design | 2. Component wiring and Pi integration</span>
 
 ---
 
