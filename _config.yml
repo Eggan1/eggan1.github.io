@@ -44,7 +44,7 @@ external-links:    # input only your own url slug. The icons with missing entrie
   bluesky:           # https://bsky.app/profile/{your url slug} 
   
 
-# Skills Section - Add the list of your Skills by categories/tools. The indentation for each level needs to be precise. 
+# Skills Section
 skills:
   - category: 3D Modeling
     tools:
@@ -58,12 +58,12 @@ skills:
     - LaTeX
 
 
-# Contact Form Setup. Setup an account and copy over the key. When someone fills out the form, it will be received in your email.
+# Contact Form Setup
 formspree-key:   https://formspree.io/f/{8-digit key}
 
 
 
-# Active theme (Updatethis to switch themes). Make sure to keep the indentation the samne.
+# Active theme
 colors: # this is the basic theme
   text: "#1a1c20"
   border: "#ddd"
@@ -72,7 +72,6 @@ colors: # this is the basic theme
   background: "#ffffff"
   light_background: "#f3f5fb"
 
-# A few examples. 
 basic theme:
   text: "#1a1c20"
   border: "#ddd"
@@ -107,9 +106,6 @@ lemon theme:
 
 
 
-
-
-
 #########################################################################################################
 # Build settings for the site. Editing the below may cause the site to malfunction.
 
@@ -117,6 +113,9 @@ collections:
   projects:
     output: true
     permalink: /projects/:path/
+  blogs:
+    output: true
+    permalink: /blogs/:path/
 
 
 markdown: kramdown
@@ -137,24 +136,4 @@ plugins:
 
 include:
   - _projects
-
-
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+  - _blogs

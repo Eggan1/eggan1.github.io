@@ -1,0 +1,124 @@
+<section id="blogs">
+  <div class="section-container">
+    <h2 class="section-title">Blog</h2>
+    <p class="section-subtitle">Thoughts, stories, and things I've learned along the way.</p>
+
+    <div class="blog-grid">
+      {% assign sorted_blogs = site.blogs | sort: 'date' | reverse %}
+      {% for blog in sorted_blogs %}
+      <a class="blog-card" href="{{ blog.url | relative_url }}">
+        <div class="blog-card-inner">
+          <div class="blog-meta">
+            <span class="blog-date">{{ blog.date | date: "%B %d, %Y" }}</span>
+            {% if blog.tag %}
+            <span class="blog-tag">{{ blog.tag }}</span>
+            {% endif %}
+          </div>
+          <h3 class="blog-title">{{ blog.title }}</h3>
+          <p class="blog-excerpt">{{ blog.excerpt | strip_html | truncatewords: 28 }}</p>
+          <span class="blog-read-more">Read more &rarr;</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #blogs {
+    padding: 60px 20px;
+    background-color: var(--light_background, #f3f5fb);
+  }
+
+  #blogs .section-container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  #blogs .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text, #1a1c20);
+    margin-bottom: 8px;
+  }
+
+  #blogs .section-subtitle {
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 1rem;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .blog-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    background: var(--background, #ffffff);
+    border: 1px solid var(--border, #ddd);
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .blog-card-inner {
+    padding: 24px;
+  }
+
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .blog-date {
+    font-size: 0.8rem;
+    color: #999;
+  }
+
+  .blog-tag {
+    font-size: 0.75rem;
+    background-color: var(--light_background, #f3f5fb);
+    color: var(--link, #4a76ee);
+    border: 1px solid var(--border, #ddd);
+    padding: 2px 8px;
+    border-radius: 99px;
+    font-weight: 500;
+  }
+
+  .blog-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text, #1a1c20);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  .blog-excerpt {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .blog-read-more {
+    font-size: 0.85rem;
+    color: var(--link, #4a76ee);
+    font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
