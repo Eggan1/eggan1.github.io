@@ -116,6 +116,7 @@ collections:
   blogs:
     output: true
     permalink: /blogs/:path/
+    
 
 
 markdown: kramdown
