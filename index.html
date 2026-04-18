@@ -1,0 +1,1695 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>An Khanh Nguyen — a personal site</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* =========================================================
+   Alex Chen · personal site
+   Type: EB Garamond (editorial), Inter Tight (ui), JetBrains Mono (code)
+   ========================================================= */
+
+:root {
+  --hue: 142;
+  --accent: oklch(62% 0.14 var(--hue));
+  --accent-soft: oklch(92% 0.05 var(--hue));
+  --accent-ink: oklch(38% 0.12 var(--hue));
+
+  --bg: #f7f3ec;
+  --bg-2: #efe9df;
+  --ink: #1a1814;
+  --ink-2: #4a463d;
+  --ink-3: #8a8578;
+  --rule: #d9d1c2;
+  --card: #fbf8f2;
+  --paper-shadow: 0 1px 0 rgba(26,24,20,0.04), 0 24px 48px -24px rgba(26,24,20,0.12);
+
+  --f-serif: 'EB Garamond', Georgia, serif;
+  --f-sans: 'Inter Tight', system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --maxw: 1200px;
+  --gutter: clamp(20px, 4vw, 56px);
+  --pad-y: clamp(80px, 12vh, 160px);
+}
+
+[data-theme="dark"] {
+  --bg: #0e0f0c;
+  --bg-2: #14150f;
+  --ink: #eae6dc;
+  --ink-2: #b5b0a2;
+  --ink-3: #6f6a5e;
+  --rule: #2a2b22;
+  --card: #141510;
+  --accent: oklch(75% 0.17 var(--hue));
+  --accent-soft: oklch(28% 0.06 var(--hue));
+  --accent-ink: oklch(88% 0.12 var(--hue));
+  --paper-shadow: 0 1px 0 rgba(0,0,0,0.4), 0 24px 48px -24px rgba(0,0,0,0.5);
+}
+
+[data-density="airy"] {
+  --pad-y: clamp(120px, 18vh, 220px);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-serif);
+  font-size: 19px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--accent-ink); }
+
+em { font-style: italic; }
+strong { font-weight: 600; }
+
+::selection { background: var(--accent-soft); color: var(--accent-ink); }
+
+/* ---------- grain ---------- */
+.grain {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+}
+[data-theme="dark"] .grain { mix-blend-mode: screen; opacity: 0.15; }
+[data-grain="off"] .grain { display: none; }
+
+/* ---------- top bar ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px var(--gutter);
+  backdrop-filter: blur(10px) saturate(1.1);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom: 1px solid var(--rule);
+}
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--f-sans); font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+.brand-mark { color: var(--accent); display: inline-flex; }
+.brand-text .sub { color: var(--ink-3); font-weight: 400; }
+.nav { display: flex; gap: 26px; font-family: var(--f-sans); font-size: 14px; color: var(--ink-2); }
+.nav a { position: relative; padding: 4px 0; }
+.nav a::after {
+  content:''; position:absolute; left:0; right:100%; bottom: 0;
+  height: 1px; background: var(--accent);
+  transition: right 0.3s ease;
+}
+.nav a:hover::after { right: 0; }
+
+.theme-toggle {
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink-2);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent-ink); }
+.theme-toggle .moon { display: none; }
+[data-theme="dark"] .theme-toggle .sun { display: none; }
+[data-theme="dark"] .theme-toggle .moon { display: inline; }
+
+/* ---------- shared sections ---------- */
+main { display: block; }
+section {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: var(--pad-y) var(--gutter);
+  position: relative;
+}
+section + section { border-top: 1px solid var(--rule); }
+
+.section-head { margin-bottom: 56px; }
+.sec-num {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 14px;
+}
+.section-head h2 {
+  font-family: var(--f-serif);
+  font-weight: 500;
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin: 0;
+  font-style: italic;
+}
+.sec-sub {
+  font-family: var(--f-sans);
+  font-size: 15px;
+  color: var(--ink-2);
+  max-width: 60ch;
+  margin: 18px 0 0;
+}
+.inline-link { color: var(--accent-ink); border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+
+/* ---------- HERO ---------- */
+.hero {
+  padding-top: clamp(60px, 9vh, 110px);
+  padding-bottom: clamp(40px, 6vh, 80px);
+  border-top: none !important;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+
+.eyebrow {
+  font-family: var(--f-sans);
+  font-size: 13px;
+  color: var(--ink-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 100px;
+  margin: 0 0 28px;
+  letter-spacing: 0.01em;
+}
+.eyebrow .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.2); } }
+
+.display {
+  font-family: var(--f-serif);
+  font-size: clamp(40px, 5.2vw, 76px);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+  margin: 0 0 28px;
+}
+.display em {
+  font-style: italic;
+  background: linear-gradient(180deg, transparent 70%, color-mix(in srgb, var(--accent) 40%, transparent) 70%, color-mix(in srgb, var(--accent) 40%, transparent) 92%, transparent 92%);
+  padding: 0 2px;
+}
+.display .soft { color: var(--ink-2); font-style: normal; font-weight: 400; }
+
+.name {
+  position: relative;
+  display: inline;
+  white-space: nowrap;
+  color: var(--accent-ink);
+  border-bottom: 2px dashed color-mix(in srgb, var(--accent) 50%, transparent);
+  cursor: help;
+}
+.name::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0; right: 100%;
+  height: 2px;
+  background: var(--accent);
+  transition: right 0.5s cubic-bezier(0.2,0.7,0.2,1);
+}
+.name:hover::before, .name:focus::before { right: 0; }
+
+.lede {
+  font-size: 20px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 46ch;
+  margin: 0 0 36px;
+}
+.lede strong { color: var(--ink); }
+.lede u { text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--accent); }
+
+.hero-cta { display: flex; gap: 14px; align-items: center; margin-bottom: 32px; }
+.btn {
+  font-family: var(--f-sans);
+  font-weight: 500;
+  font-size: 14px;
+  padding: 11px 20px;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.btn.primary {
+  background: var(--ink);
+  color: var(--bg);
+}
+.btn.primary:hover {
+  background: var(--accent-ink);
+  transform: translateY(-1px);
+}
+.btn.ghost {
+  border-color: var(--rule);
+  color: var(--ink-2);
+}
+.btn.ghost:hover { border-color: var(--ink); color: var(--ink); }
+
+.caption {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  color: var(--ink-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+.kbd {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  padding: 2px 7px;
+  border: 1px solid var(--rule);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--card);
+  color: var(--ink-2);
+  letter-spacing: 0.04em;
+}
+
+/* viz */
+.hero-viz {
+  margin: 0;
+  padding: 20px;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  box-shadow: var(--paper-shadow);
+  position: relative;
+}
+.hero-viz::before {
+  content: '';
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+.hero-viz svg { width: 100%; height: auto; display: block; color: var(--ink-2); }
+.hero-viz .ax { font-family: var(--f-mono); font-size: 10px; fill: var(--ink-3); font-style: italic; }
+.hero-viz .eq {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 15px;
+  fill: var(--ink);
+}
+.hero-viz .eqs {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  fill: var(--ink-3);
+}
+
+.hero-viz figcaption {
+  margin-top: 14px;
+  font-family: var(--f-sans);
+  font-size: 12.5px;
+  color: var(--ink-2);
+  line-height: 1.5;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.tag {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  padding: 2px 7px;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.muted { color: var(--ink-3); }
+
+/* points & line */
+.pt {
+  fill: var(--ink);
+  opacity: 0.75;
+  transition: transform 0.3s ease;
+}
+.pt-new { animation: popIn 0.5s cubic-bezier(0.2,1.5,0.4,1) both; }
+@keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 0.75; } }
+.fitline {
+  stroke: var(--accent);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+}
+.resid { stroke: var(--accent); stroke-width: 0.5; opacity: 0.3; stroke-dasharray: 2 2; }
+.density-path { fill: none; stroke: var(--accent); stroke-width: 2; }
+
+/* ticker */
+.ticker {
+  margin-top: clamp(60px, 10vh, 120px);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  overflow: hidden;
+  padding: 18px 0;
+  color: var(--ink-3);
+  font-family: var(--f-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+          mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+.ticker-track {
+  display: inline-flex;
+  gap: 36px;
+  animation: ticker 60s linear infinite;
+  padding-left: 36px;
+}
+.ticker-track span:nth-child(even) { color: var(--accent); }
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+/* ---------- ABOUT ---------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: clamp(32px, 5vw, 80px);
+}
+.about-prose p { font-size: 20px; line-height: 1.6; margin: 0 0 20px; color: var(--ink); max-width: 48ch; }
+.drop { font-size: 28px !important; line-height: 1.35 !important; font-style: italic; color: var(--ink) !important; margin-bottom: 28px !important; }
+.drop::first-letter {
+  font-size: 3.4em;
+  float: left;
+  line-height: 0.85;
+  margin: 0.1em 0.1em 0 -0.04em;
+  color: var(--accent-ink);
+  font-style: normal;
+  font-weight: 500;
+}
+.facts {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 28px;
+  font-family: var(--f-sans);
+  font-size: 14px;
+}
+.facts > div {
+  display: flex;
+  gap: 16px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule);
+}
+.facts dt { color: var(--ink-3); min-width: 80px; text-transform: lowercase; letter-spacing: 0.02em; margin: 0; }
+.facts dd { margin: 0; color: var(--ink); }
+.facts a { border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
+.facts a:hover { border-color: var(--accent); }
+
+.about-aside { display: flex; flex-direction: column; gap: 28px; padding-top: 8px; }
+.portrait { margin: 0; position: relative; }
+.portrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+  box-shadow: var(--paper-shadow);
+  filter: saturate(1.02);
+}
+.portrait figcaption {
+  margin-top: 10px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.margin-note {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 20px 22px;
+  position: relative;
+}
+.mn-label {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: block;
+  margin-bottom: 12px;
+}
+.eq-card .eq-main {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 26px;
+  line-height: 1.3;
+  color: var(--ink);
+  padding: 10px 0 16px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 12px;
+}
+.eq-gloss {
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.5;
+  margin: 0;
+}
+.margin-note blockquote {
+  margin: 0; padding: 0;
+  font-size: 19px;
+  line-height: 1.45;
+}
+.margin-note blockquote p { margin: 0 0 10px; }
+.margin-note blockquote cite {
+  font-family: var(--f-sans);
+  font-style: normal;
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+
+/* ---------- PROJECTS ---------- */
+.projects { }
+.project {
+  padding: 36px 0;
+  border-top: 1px solid var(--rule);
+  position: relative;
+}
+.project:first-of-type { border-top: none; padding-top: 0; }
+.project.feature { padding-bottom: 56px; }
+.proj-meta {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.pnum { color: var(--accent); }
+.project h3 {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(30px, 3.5vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 14px;
+}
+.proj-dek {
+  font-size: 19px;
+  color: var(--ink-2);
+  max-width: 60ch;
+  margin: 0 0 24px;
+  line-height: 1.55;
+}
+.proj-body {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 24px;
+}
+.project:nth-of-type(2) .proj-body { grid-template-columns: 1fr; }
+
+.proj-visual { border-radius: 8px; overflow: hidden; }
+.proj-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--f-sans);
+  font-size: 14px;
+}
+.proj-bullets li {
+  display: flex;
+  padding: 10px 0;
+  border-top: 1px solid var(--rule);
+}
+.proj-bullets li:last-child { border-bottom: 1px solid var(--rule); }
+.b-k { color: var(--ink-3); min-width: 80px; text-transform: lowercase; }
+.b-v { color: var(--ink); }
+
+.proj-more {
+  font-family: var(--f-sans);
+  font-size: 14px;
+  color: var(--accent-ink);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+  display: inline-block;
+  transition: gap 0.3s ease;
+}
+.proj-more:hover { color: var(--accent); }
+
+.project.soon { opacity: 0.75; }
+.project.soon h3 { color: var(--ink-2); }
+
+/* placeholder visuals — subtle stripes */
+.placeholder {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      var(--bg-2) 0 10px,
+      var(--card) 10px 20px
+    );
+  border: 1px solid var(--rule);
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: var(--ink-3);
+}
+.placeholder.tall { aspect-ratio: 21 / 9; }
+.ph-label {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  color: var(--ink-3);
+}
+
+/* ---------- WRITING ---------- */
+.essay.featured {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  padding: 40px 0 56px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 40px;
+}
+.essay-side {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 10px;
+}
+.essay-side .issue { color: var(--accent); }
+.essay-main h3 {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+}
+.essay-main .dek {
+  font-size: 21px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin: 0 0 22px;
+  max-width: 50ch;
+}
+.essay-main .excerpt {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink);
+  max-width: 60ch;
+  margin: 0 0 22px;
+  padding-left: 18px;
+  border-left: 1px solid var(--accent);
+  font-style: italic;
+}
+.read {
+  font-family: var(--f-sans);
+  font-size: 14px;
+  color: var(--accent-ink);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+
+.essay-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: ess;
+}
+.essay-list li {
+  display: grid;
+  grid-template-columns: 60px 1fr auto auto;
+  gap: 28px;
+  align-items: start;
+  padding: 22px 0;
+  border-top: 1px solid var(--rule);
+  transition: background 0.3s ease, padding 0.3s ease;
+}
+.essay-list li:hover {
+  background: var(--card);
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0 -20px;
+}
+.el-num {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  color: var(--ink-3);
+  padding-top: 4px;
+}
+.el-body h4 {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.25;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.essay-list a:hover h4 { color: var(--accent-ink); }
+.el-dek { font-size: 15px; color: var(--ink-2); margin: 0; line-height: 1.45; max-width: 52ch; }
+.el-date, .el-read {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-top: 6px;
+  white-space: nowrap;
+}
+.arch-link {
+  margin-top: 40px;
+  font-family: var(--f-sans);
+  font-size: 14px;
+  color: var(--accent-ink);
+}
+
+/* ---------- EXPERIENCE ---------- */
+.timeline { list-style: none; padding: 0; margin: 0; }
+.timeline li {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 40px;
+  padding: 26px 0;
+  border-top: 1px solid var(--rule);
+  align-items: baseline;
+}
+.tl-year {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+.tl-body h4 {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 22px;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.tl-body p { font-size: 16px; line-height: 1.55; color: var(--ink-2); margin: 0; max-width: 60ch; }
+
+/* ---------- PHOTOS ---------- */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+}
+.ph { margin: 0; }
+.ph-img { aspect-ratio: 3 / 4; border-radius: 4px; }
+.ph-1 { grid-column: span 3; } .ph-1 .ph-img { aspect-ratio: 4 / 3; }
+.ph-2 { grid-column: span 3; } .ph-2 .ph-img { aspect-ratio: 4 / 3; }
+.ph-3 { grid-column: span 2; }
+.ph-4 { grid-column: span 2; }
+.ph-5 { grid-column: span 2; }
+.ph-6 { grid-column: span 3; } .ph-6 .ph-img { aspect-ratio: 4 / 3; }
+.ph figcaption {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 8px;
+}
+
+/* ---------- FOOTER ---------- */
+.foot {
+  border-top: 1px solid var(--rule);
+  background: var(--bg-2);
+  margin-top: 60px;
+}
+.foot-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 80px var(--gutter) 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px;
+}
+.foot-col h5 {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 500;
+  margin: 0 0 14px;
+}
+.foot-col p { font-size: 15px; line-height: 1.55; color: var(--ink-2); margin: 0 0 10px; max-width: 32ch; }
+.foot-col a { color: var(--ink); border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
+.foot-col a:hover { border-color: var(--accent); color: var(--accent-ink); }
+.foot-col ul { list-style: none; padding: 0; margin: 0; font-size: 15px; }
+.foot-col ul li { padding: 4px 0; }
+
+.foot-col.sig { color: var(--ink-2); }
+.sig-mark { color: var(--accent); }
+.sig-line { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 6px; }
+
+/* ---------- TWEAKS PANEL ---------- */
+.tweaks {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 300px;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  box-shadow: 0 20px 50px -20px rgba(0,0,0,0.3);
+  z-index: 1000;
+  font-family: var(--f-sans);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.tweaks.hidden { transform: translateY(20px); opacity: 0; pointer-events: none; }
+.tw-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 13px;
+}
+.tw-head button { background: none; border: none; color: var(--ink-3); font-size: 20px; cursor: pointer; line-height: 1; }
+.tw-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 14px; }
+.tw-row { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--ink-2); }
+.tw-row > span:first-child { text-transform: lowercase; letter-spacing: 0.02em; color: var(--ink-3); }
+.tw-row input[type="range"] { width: 100%; }
+.tw-row input[type="text"] { padding: 6px 8px; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); border-radius: 4px; font-family: inherit; font-size: 13px; }
+.tw-row output { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); }
+.tw-seg { display: flex; gap: 4px; background: var(--bg-2); padding: 3px; border-radius: 6px; }
+.tw-seg button {
+  flex: 1; font-family: inherit; font-size: 11px; padding: 5px 6px;
+  background: transparent; border: none; border-radius: 4px; cursor: pointer;
+  color: var(--ink-2);
+}
+.tw-seg button.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+.tw-foot { font-size: 11px; color: var(--ink-3); padding: 8px 16px 12px; margin: 0; border-top: 1px solid var(--rule); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 860px) {
+  .nav { display: none; }
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .proj-body { grid-template-columns: 1fr !important; }
+  .essay.featured { grid-template-columns: 1fr; gap: 18px; }
+  .essay-side { flex-direction: row; gap: 16px; }
+  .essay-list li { grid-template-columns: 40px 1fr; }
+  .el-date, .el-read { grid-column: 2; padding-top: 0; }
+  .foot-inner { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .photo-grid { grid-template-columns: repeat(2, 1fr); }
+  .ph-1, .ph-2, .ph-3, .ph-4, .ph-5, .ph-6 { grid-column: span 1; }
+  .ph-1 .ph-img, .ph-2 .ph-img, .ph-6 .ph-img { aspect-ratio: 3/4; }
+  .tweaks { left: 16px; right: 16px; width: auto; bottom: 16px; }
+}
+
+</style>
+</head>
+<body data-theme="light">
+
+<!-- Tweakable defaults, rewritten by the host when the user changes them -->
+<script>
+window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
+  "accentHue": 279,
+  "heroVariant": "regression",
+  "density": "airy",
+  "showGrain": true,
+  "heroName": "An Khanh Nguyen"
+}/*EDITMODE-END*/;
+</script>
+
+<!-- Paper grain overlay -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- Top bar -->
+<header class="topbar">
+  <a class="brand" href="#home">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="22" height="22">
+        <circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M6 22 Q 11 6, 16 16 T 26 10" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+    </span>
+    <span class="brand-text">an<span class="sub">.notes</span></span>
+  </a>
+  <nav class="nav">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#writing">Writing</a>
+    <a href="#experience">Experience</a>
+    <a href="#photos">Photos</a>
+  </nav>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <span class="sun">☀</span><span class="moon">☾</span>
+  </button>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section id="home" class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">
+        <span class="dot"></span>
+        <span id="nowStatus">sophomore · data science @ vinuniversity</span>
+      </p>
+      <h1 class="display">
+        Hi, I'm <span class="name" id="heroName" tabindex="0">An Khanh Nguyen</span>.
+        <span class="soft">I study data, but mostly I'm</span>
+        <em>chasing the shape of things</em>.
+      </h1>
+      <p class="lede">
+        Sophomore in Data Science, minor in Economics at
+        <u>VinUniversity</u>, Vietnam. My research focuses are
+        <strong>statistics &amp; econometrics</strong>.
+      </p>
+      <div class="hero-cta">
+        <a class="btn primary" href="#writing">Read the writing →</a>
+        <a class="btn ghost" href="#projects">See projects</a>
+      </div>
+      <p class="caption">
+        <span class="kbd">press</span>
+        <span class="kbd">R</span>
+        <span>to refit the line</span>
+      </p>
+    </div>
+
+    <!-- Signature math visual -->
+    <figure class="hero-viz" id="heroViz" aria-label="A regression line fitting to scattered points">
+      <svg viewBox="0 0 420 360" preserveAspectRatio="xMidYMid meet" id="heroSvg">
+        <defs>
+          <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M30 0H0V30" fill="none" stroke="currentColor" stroke-width="0.3" opacity="0.3"/>
+          </pattern>
+        </defs>
+        <rect width="420" height="360" fill="url(#grid)"/>
+        <!-- axes -->
+        <line x1="40" y1="320" x2="400" y2="320" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="40" y1="40" x2="40" y2="320" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <text x="400" y="340" text-anchor="end" class="ax">x</text>
+        <text x="30" y="50" text-anchor="end" class="ax">y</text>
+        <!-- Points + line drawn by JS -->
+        <g id="pointsG"></g>
+        <g id="lineG"></g>
+        <g id="residG"></g>
+        <g id="densityG"></g>
+        <!-- Annotation -->
+        <g id="annG" transform="translate(50, 50)">
+          <rect x="-6" y="-16" width="150" height="36" rx="4" fill="var(--card)" opacity="0.9"/>
+          <text x="0" y="0" class="eq" id="eqText" style="stroke-width: 1px">ŷ = β̂₀ + β̂₁ x</text>
+          <text x="0" y="16" class="eqs" id="eqStats">R² = —</text>
+        </g>
+      </svg>
+      <figcaption>
+        <span class="tag">fig. 01</span>
+        An ordinary least squares fit to 24 synthetic observations.
+        <span class="muted">click anywhere to add a point.</span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- ticker of interests -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>maximum likelihood</span><span>·</span>
+      <span>instrumental variables</span><span>·</span>
+      <span>bootstrap</span><span>·</span>
+      <span>causal inference</span><span>·</span>
+      <span>kernel density</span><span>·</span>
+      <span>bayesian updating</span><span>·</span>
+      <span>panel data</span><span>·</span>
+      <span>monte carlo</span><span>·</span>
+      <span>heteroskedasticity</span><span>·</span>
+      <span>maximum likelihood</span><span>·</span>
+      <span>instrumental variables</span><span>·</span>
+      <span>bootstrap</span><span>·</span>
+      <span>causal inference</span><span>·</span>
+      <span>kernel density</span><span>·</span>
+      <span>bayesian updating</span><span>·</span>
+      <span>panel data</span><span>·</span>
+      <span>monte carlo</span><span>·</span>
+      <span>heteroskedasticity</span><span>·</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="about">
+  <div class="section-head">
+    <span class="sec-num">§ 01</span>
+    <h2>About</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-prose">
+      <p class="drop">
+        I'm a data science undergraduate who fell in love with
+        statistics the way some people fall in love with a city —
+        slowly, then all at once.
+      </p>
+      <p>
+        I'm a data science undergraduate who fell in love with
+        statistics the way some people fall in love with a city —
+        slowly, then all at once. I didn't always love it. Math and
+        I had a long, bad relationship through high school; I wrote
+        about that <a href="blog/my-struggle-story-against-mathematics.html" class="inline-link">here</a>.
+      </p>
+      <p>
+        Outside of school I build small things, take photos of
+        whatever light catches, and keep a running list of questions
+        I don't know how to answer yet.
+      </p>
+
+      <div class="facts">
+        <div><dt>Currently</dt><dd>BS Data Science, sophomore</dd></div>
+        <div><dt>Minor</dt><dd>Economics</dd></div>
+        <div><dt>School</dt><dd>VinUniversity, Hanoi</dd></div>
+        <div><dt>Focus</dt><dd>Statistics &amp; econometrics</dd></div>
+        <div><dt>Toolbox</dt><dd>Python, R, LaTeX</dd></div>
+        <div><dt>Also</dt><dd>Onshape, Solidworks, Blender</dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:24an.nk@vinuni.edu.vn">24an.nk@vinuni.edu.vn</a></dd></div>
+        <div><dt>Elsewhere</dt><dd>
+          <a href="https://github.com/Eggan1" target="_blank" rel="noopener">github</a> ·
+          <a href="#">linkedin</a>
+        </dd></div>
+      </div>
+    </div>
+
+    <aside class="about-aside">
+      <figure class="portrait">
+        <img src="assets/prof_pic.JPG" alt="Portrait of An Khanh Nguyen" loading="lazy" />
+        <figcaption>
+</figcaption>
+      </figure>
+      <div class="margin-note">
+        <span class="mn-label">a favorite equation</span>
+        <div class="eq-card">
+          <div class="eq-main">
+            β̂ = (XᵀX)⁻¹ Xᵀy
+          </div>
+          <p class="eq-gloss">
+            The closed-form OLS estimator. Every time I write it
+            out I feel like I'm tying a knot I trust.
+          </p>
+        </div>
+      </div>
+      <div class="margin-note">
+        <span class="mn-label">a sentence I keep</span>
+        <blockquote>
+          <p><em>All models are wrong, but some are useful.</em></p>
+          <cite>— George E. P. Box</cite>
+        </blockquote>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects" class="projects">
+  <div class="section-head">
+    <span class="sec-num">§ 02</span>
+    <h2>Projects</h2>
+    <p class="sec-sub">Things I've built, measured, or gotten wrong in public.</p>
+  </div>
+
+  <article class="project feature">
+    <div class="proj-meta">
+      <span class="pnum">P-01</span>
+      <span class="ptag">hardware · python · autocad</span>
+      <span class="pyear">2025</span>
+    </div>
+    <h3>EcoBox Smart Display</h3>
+    <p class="proj-dek">
+      A sustainable, low-power information dashboard. A Raspberry
+      Pi Zero 2 W drives a 7.5" E-Ink display housed in a custom
+      AutoCAD enclosure, with a Python image-processing pipeline
+      that maps web content into a 3-color (black, white, yellow)
+      palette.
+    </p>
+    <div class="proj-body">
+      <div class="proj-visual placeholder">
+        <span class="ph-label">ecobox · cad render + final build</span>
+      </div>
+      <ul class="proj-bullets">
+        <li><span class="b-k">hardware</span><span class="b-v">Pi Zero 2 W + Waveshare 7.5" E-Ink HAT</span></li>
+        <li><span class="b-k">chassis</span><span class="b-v">Custom AutoCAD frame, bezel tolerances</span></li>
+        <li><span class="b-k">software</span><span class="b-v">Python · 3-color palette mapping</span></li>
+        <li><span class="b-k">focus</span><span class="b-v">Distraction-free data dashboard</span></li>
+      </ul>
+    </div>
+    <a class="proj-more" href="#">read the write-up →</a>
+  </article>
+
+  <article class="project">
+    <div class="proj-meta">
+      <span class="pnum">P-02</span>
+      <span class="ptag">blender · csg · animation</span>
+      <span class="pyear">2025</span>
+    </div>
+    <h3>Aviation 3D Modeling</h3>
+    <p class="proj-dek">
+      Precision 3D modeling of aircraft using Constructive Solid
+      Geometry and Blender — high-fidelity aeronautical renders
+      and short technical animations of flight surfaces.
+    </p>
+    <div class="proj-body">
+      <div class="proj-visual placeholder tall">
+        <span class="ph-label">aircraft render · DAD series</span>
+      </div>
+    </div>
+    <a class="proj-more" href="#">open the gallery →</a>
+  </article>
+
+  <article class="project soon">
+    <div class="proj-meta">
+      <span class="pnum">P-03</span>
+      <span class="ptag">econometrics · coming soon</span>
+      <span class="pyear">2026</span>
+    </div>
+    <h3>A small econometrics notebook</h3>
+    <p class="proj-dek">
+      Weekend essay-with-code: a causal question I care about,
+      answered slowly and in public. Still sketching.
+    </p>
+    <a class="proj-more" href="#">notify me →</a>
+  </article>
+</section>
+
+<!-- ============ WRITING ============ -->
+<section id="writing" class="writing">
+  <div class="section-head">
+    <span class="sec-num">§ 03</span>
+    <h2>Writing</h2>
+    <p class="sec-sub">
+      Medium-long essays. Stories, thoughts on life, and the
+      occasional footnote about statistics.
+    </p>
+  </div>
+
+  <!-- Featured essay -->
+  <article class="essay featured">
+    <div class="essay-side">
+      <span class="issue">Issue 001</span>
+      <span class="date">Apr 16, 2026</span>
+      <span class="readtime">9 min read</span>
+    </div>
+    <div class="essay-main">
+      <h3>My struggle story against mathematics</h3>
+      <p class="dek">
+        How I went from failing high school calculus to studying
+        Data Science — and what I learned about learning itself.
+      </p>
+      <p class="excerpt">
+        There is a particular kind of shame that only math can
+        produce in you. It's not like failing an essay, where you
+        can at least tell yourself the grader didn't understand
+        your point. With math, the answer is either right or wrong.
+        The red pen doesn't lie…
+      </p>
+      <a class="read" href="blog/my-struggle-story-against-mathematics.html">keep reading →</a>
+    </div>
+  </article>
+
+  <!-- Essay list -->
+  <ol class="essay-list">
+    <li>
+      <span class="el-num">—</span>
+      <div class="el-body">
+        <a href="#"><h4>Notes from a first econometrics class</h4></a>
+        <p class="el-dek">Drafting · on the feeling of a model finally disagreeing with you.</p>
+      </div>
+      <span class="el-date">coming soon</span>
+      <span class="el-read">—</span>
+    </li>
+    <li>
+      <span class="el-num">—</span>
+      <div class="el-body">
+        <a href="#"><h4>Small hardware, slow light</h4></a>
+        <p class="el-dek">Drafting · what I learned from staring at an E-Ink display for a week.</p>
+      </div>
+      <span class="el-date">coming soon</span>
+      <span class="el-read">—</span>
+    </li>
+  </ol>
+
+  <p class="arch-link"><a href="#">→ archive (more essays on the way)</a></p>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience" class="experience">
+  <div class="section-head">
+    <span class="sec-num">§ 04</span>
+    <h2>Experience</h2>
+    <p class="sec-sub">A shortened CV. <a href="#" class="inline-link">download the full pdf →</a></p>
+  </div>
+
+  <ol class="timeline">
+    <li>
+      <span class="tl-year">2026</span>
+      <div class="tl-body">
+        <h4>Sophomore · BS Data Science, minor Economics</h4>
+        <p>VinUniversity, Hanoi. Deepening into statistics, probability, and the econometrics that keeps me up.</p>
+      </div>
+    </li>
+    <li>
+      <span class="tl-year">2025</span>
+      <div class="tl-body">
+        <h4>Built the EcoBox Smart Display</h4>
+        <p>Raspberry Pi + E-Ink + a custom AutoCAD chassis. My first real hardware + software project.</p>
+      </div>
+    </li>
+    <li>
+      <span class="tl-year">2024</span>
+      <div class="tl-body">
+        <h4>Began BS at VinUniversity</h4>
+        <p>First course that clicked: probability. Started 3D modeling in Blender in my free time.</p>
+      </div>
+    </li>
+    <li>
+      <span class="tl-year">2023</span>
+      <div class="tl-body">
+        <h4>Made peace with math</h4>
+        <p>After a long adversarial relationship with calculus. It took a blackboard YouTube channel and a lot of patience.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<!-- ============ PHOTOS ============ -->
+<section id="photos" class="photos">
+  <div class="section-head">
+    <span class="sec-num">§ 05</span>
+    <h2>Photos</h2>
+    <p class="sec-sub">A slow archive of light, mostly on film, mostly from walks.</p>
+  </div>
+
+  <div class="photo-grid">
+    <figure class="ph ph-1"><div class="ph-img placeholder"><span class="ph-label">35mm · morning fog</span></div><figcaption>San Diego, Jan</figcaption></figure>
+    <figure class="ph ph-2"><div class="ph-img placeholder"><span class="ph-label">window still life</span></div><figcaption>Desk, Feb</figcaption></figure>
+    <figure class="ph ph-3"><div class="ph-img placeholder"><span class="ph-label">neon reflection</span></div><figcaption>Convoy, Feb</figcaption></figure>
+    <figure class="ph ph-4"><div class="ph-img placeholder"><span class="ph-label">cat · 1/125s</span></div><figcaption>Mochi, Mar</figcaption></figure>
+    <figure class="ph ph-5"><div class="ph-img placeholder"><span class="ph-label">coastline · long lens</span></div><figcaption>Torrey Pines, Mar</figcaption></figure>
+    <figure class="ph ph-6"><div class="ph-img placeholder"><span class="ph-label">library aisle</span></div><figcaption>Geisel, Apr</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="foot-col">
+      <h5>Contact</h5>
+      <p>The best way to reach me is a long email. I answer all of them, slowly.</p>
+      <p><a href="mailto:24an.nk@vinuni.edu.vn">24an.nk@vinuni.edu.vn</a></p>
+    </div>
+    <div class="foot-col">
+      <h5>Elsewhere</h5>
+      <ul>
+        <li><a href="https://github.com/Eggan1" target="_blank" rel="noopener">github</a></li>
+        <li><a href="#">linkedin</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Colophon</h5>
+      <p>Set in EB Garamond &amp; Inter Tight. Hand-rolled in HTML, CSS, and a little JS. No trackers, no cookies, no analytics.</p>
+    </div>
+    <div class="foot-col sig">
+      <div class="sig-mark">
+        <svg viewBox="0 0 160 60" width="140" height="50">
+          <path d="M10 45 C 25 10, 55 55, 70 30 S 110 5, 135 40" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+      </div>
+      <p class="sig-line">© 2026 · written in Hanoi</p>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<!-- Tweaks panel -->
+<div id="tweaks" class="tweaks hidden" aria-hidden="true">
+  <div class="tw-head">
+    <strong>Tweaks</strong>
+    <button id="tweaksClose" aria-label="Close">×</button>
+  </div>
+  <div class="tw-body">
+    <label class="tw-row">
+      <span>Accent hue</span>
+      <input type="range" id="tw-hue" min="0" max="360" step="1" />
+      <output id="tw-hue-out"></output>
+    </label>
+    <div class="tw-row">
+      <span>Hero visual</span>
+      <div class="tw-seg" id="tw-hero">
+        <button data-v="regression">regression</button>
+        <button data-v="density">density</button>
+        <button data-v="walk">random walk</button>
+      </div>
+    </div>
+    <div class="tw-row">
+      <span>Density</span>
+      <div class="tw-seg" id="tw-density">
+        <button data-v="cozy">cozy</button>
+        <button data-v="airy">airy</button>
+      </div>
+    </div>
+    <label class="tw-row">
+      <span>Paper grain</span>
+      <input type="checkbox" id="tw-grain" />
+    </label>
+    <label class="tw-row">
+      <span>Hero name</span>
+      <input type="text" id="tw-name" />
+    </label>
+  </div>
+  <p class="tw-foot">Changes persist on reload.</p>
+</div>
+
+<script>
+/* =========================================================
+   Personal site — interactivity
+   ========================================================= */
+
+(() => {
+  const T = window.__TWEAKS__ || {};
+
+  // ---- apply initial tweaks to DOM ----
+  const applyHue = (h) => {
+    document.documentElement.style.setProperty('--hue', h);
+  };
+  const applyDensity = (d) => {
+    document.documentElement.setAttribute('data-density', d);
+  };
+  const applyGrain = (on) => {
+    document.documentElement.setAttribute('data-grain', on ? 'on' : 'off');
+  };
+  const applyName = (name) => {
+    const el = document.getElementById('heroName');
+    if (el && name) el.textContent = name;
+  };
+
+  applyHue(T.accentHue ?? 142);
+  applyDensity(T.density ?? 'cozy');
+  applyGrain(T.showGrain !== false);
+  applyName(T.heroName);
+
+  // ---- theme toggle ----
+  const themeBtn = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('ac-theme');
+  if (savedTheme) document.body.dataset.theme = savedTheme;
+  themeBtn?.addEventListener('click', () => {
+    const next = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.body.dataset.theme = next;
+    localStorage.setItem('ac-theme', next);
+  });
+
+  // ---- hero viz ----
+  const svg = document.getElementById('heroSvg');
+  const pointsG = document.getElementById('pointsG');
+  const lineG = document.getElementById('lineG');
+  const residG = document.getElementById('residG');
+  const densityG = document.getElementById('densityG');
+  const eqText = document.getElementById('eqText');
+  const eqStats = document.getElementById('eqStats');
+  const annG = document.getElementById('annG');
+
+  const PAD = { l: 40, r: 20, t: 40, b: 40 };
+  const W = 420, H = 360;
+  const x2px = (x) => PAD.l + (x * (W - PAD.l - PAD.r));
+  const y2px = (y) => H - PAD.b - (y * (H - PAD.t - PAD.b));
+
+  let points = [];
+  let variant = T.heroVariant || 'regression';
+
+  function genRegression(n = 24) {
+    points = [];
+    const b0 = 0.12 + Math.random() * 0.1;
+    const b1 = 0.55 + Math.random() * 0.2;
+    for (let i = 0; i < n; i++) {
+      const x = Math.random() * 0.9 + 0.05;
+      const noise = (Math.random() - 0.5) * 0.28;
+      const y = Math.max(0.02, Math.min(0.95, b0 + b1 * x + noise));
+      points.push({ x, y });
+    }
+  }
+
+  function genRandomWalk(n = 48) {
+    points = [];
+    let y = 0.5;
+    for (let i = 0; i < n; i++) {
+      const x = i / (n - 1);
+      y += (Math.random() - 0.5) * 0.1;
+      y = Math.max(0.05, Math.min(0.95, y));
+      points.push({ x, y });
+    }
+  }
+
+  function fitOLS(pts) {
+    const n = pts.length;
+    if (n < 2) return { b0: 0, b1: 0, r2: 0 };
+    const mx = pts.reduce((s, p) => s + p.x, 0) / n;
+    const my = pts.reduce((s, p) => s + p.y, 0) / n;
+    let sxy = 0, sxx = 0, syy = 0;
+    for (const p of pts) {
+      sxy += (p.x - mx) * (p.y - my);
+      sxx += (p.x - mx) ** 2;
+      syy += (p.y - my) ** 2;
+    }
+    const b1 = sxx === 0 ? 0 : sxy / sxx;
+    const b0 = my - b1 * mx;
+    const ssRes = pts.reduce((s, p) => s + (p.y - (b0 + b1 * p.x)) ** 2, 0);
+    const r2 = syy === 0 ? 0 : 1 - ssRes / syy;
+    return { b0, b1, r2 };
+  }
+
+  function clear() {
+    pointsG.innerHTML = '';
+    lineG.innerHTML = '';
+    residG.innerHTML = '';
+    densityG.innerHTML = '';
+  }
+
+  function drawPoints(animate = true) {
+    pointsG.innerHTML = '';
+    points.forEach((p, i) => {
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', x2px(p.x));
+      c.setAttribute('cy', y2px(p.y));
+      c.setAttribute('r', 3.5);
+      c.setAttribute('class', 'pt' + (animate ? ' pt-new' : ''));
+      c.style.animationDelay = animate ? (i * 18) + 'ms' : '0ms';
+      pointsG.appendChild(c);
+    });
+  }
+
+  function drawLine({ b0, b1 }) {
+    lineG.innerHTML = '';
+    residG.innerHTML = '';
+    const x1 = 0, y1 = b0;
+    const x2 = 1, y2 = b0 + b1;
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', x2px(x1));
+    line.setAttribute('y1', y2px(Math.max(0, Math.min(1, y1))));
+    line.setAttribute('x2', x2px(x2));
+    line.setAttribute('y2', y2px(Math.max(0, Math.min(1, y2))));
+    line.setAttribute('class', 'fitline');
+    const len = 400;
+    line.style.strokeDasharray = len;
+    line.style.strokeDashoffset = len;
+    line.style.transition = 'stroke-dashoffset 900ms cubic-bezier(0.2,0.7,0.2,1) 400ms';
+    lineG.appendChild(line);
+    requestAnimationFrame(() => { line.style.strokeDashoffset = 0; });
+
+    points.forEach((p) => {
+      const yhat = b0 + b1 * p.x;
+      const r = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      r.setAttribute('x1', x2px(p.x));
+      r.setAttribute('y1', y2px(p.y));
+      r.setAttribute('x2', x2px(p.x));
+      r.setAttribute('y2', y2px(yhat));
+      r.setAttribute('class', 'resid');
+      residG.appendChild(r);
+    });
+  }
+
+  function drawDensity() {
+    densityG.innerHTML = '';
+    // Kernel density along x using a gaussian bump
+    const steps = 80;
+    const bw = 0.08;
+    const pts = [];
+    for (let i = 0; i <= steps; i++) {
+      const x = i / steps;
+      let d = 0;
+      for (const p of points) {
+        const u = (x - p.x) / bw;
+        d += Math.exp(-0.5 * u * u);
+      }
+      d = d / (points.length * bw * Math.sqrt(2 * Math.PI));
+      pts.push({ x, d });
+    }
+    const maxD = Math.max(...pts.map(p => p.d));
+    const path = pts.map((p, i) => {
+      const X = x2px(p.x);
+      const Y = y2px(0.1 + 0.7 * (p.d / maxD));
+      return (i === 0 ? 'M' : 'L') + X + ',' + Y;
+    }).join(' ');
+    const el = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    el.setAttribute('d', path);
+    el.setAttribute('class', 'density-path');
+    const len = 1200;
+    el.style.strokeDasharray = len;
+    el.style.strokeDashoffset = len;
+    el.style.transition = 'stroke-dashoffset 1400ms ease 200ms';
+    densityG.appendChild(el);
+    requestAnimationFrame(() => { el.style.strokeDashoffset = 0; });
+  }
+
+  function fmt(n, d = 2) { return (Math.round(n * Math.pow(10, d)) / Math.pow(10, d)).toFixed(d); }
+
+  function render() {
+    clear();
+    if (variant === 'regression') {
+      genRegression();
+      drawPoints(true);
+      const { b0, b1, r2 } = fitOLS(points);
+      setTimeout(() => drawLine({ b0, b1 }), 500);
+      eqText.textContent = `ŷ = ${fmt(b0)} + ${fmt(b1)} x`;
+      eqStats.textContent = `n = ${points.length}    R² = ${fmt(r2)}`;
+      annG.style.opacity = 1;
+    } else if (variant === 'density') {
+      genRegression(60);
+      drawPoints(true);
+      setTimeout(() => drawDensity(), 400);
+      eqText.textContent = 'f̂(x) = kernel density';
+      eqStats.textContent = `n = ${points.length}    bw = 0.08`;
+    } else if (variant === 'walk') {
+      genRandomWalk(64);
+      // draw as a path
+      const path = points.map((p, i) => (i === 0 ? 'M' : 'L') + x2px(p.x) + ',' + y2px(p.y)).join(' ');
+      const el = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      el.setAttribute('d', path);
+      el.setAttribute('class', 'fitline');
+      el.style.strokeWidth = 1.6;
+      const len = 3000;
+      el.style.strokeDasharray = len;
+      el.style.strokeDashoffset = len;
+      el.style.transition = 'stroke-dashoffset 2400ms ease';
+      lineG.appendChild(el);
+      requestAnimationFrame(() => { el.style.strokeDashoffset = 0; });
+      // dots at endpoints
+      [0, points.length - 1].forEach((i) => {
+        const p = points[i];
+        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', x2px(p.x));
+        c.setAttribute('cy', y2px(p.y));
+        c.setAttribute('r', 3.5);
+        c.setAttribute('class', 'pt');
+        pointsG.appendChild(c);
+      });
+      eqText.textContent = '';
+      const tspan = (txt, dy, fs) => {
+        const t = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+        t.textContent = txt;
+        if (dy !== undefined) t.setAttribute('dy', dy);
+        if (fs) t.setAttribute('font-size', fs);
+        return t;
+      };
+      // X_t = X_{t−1} + ε_t rendered with real subscripts
+      eqText.appendChild(tspan('X', 0));
+      eqText.appendChild(tspan('t', '4', '10'));
+      eqText.appendChild(tspan(' = X', '-4'));
+      eqText.appendChild(tspan('t−1', '4', '10'));
+      eqText.appendChild(tspan(' + ε', '-4'));
+      eqText.appendChild(tspan('t', '4', '10'));
+      eqStats.textContent = `steps = ${points.length}    ε ~ N(0, 0.1)`;
+    }
+  }
+
+  render();
+
+  // Click to add point (regression only)
+  svg.addEventListener('click', (e) => {
+    if (variant !== 'regression') return;
+    const rect = svg.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * W;
+    const y = ((e.clientY - rect.top) / rect.height) * H;
+    const xd = (x - PAD.l) / (W - PAD.l - PAD.r);
+    const yd = 1 - (y - PAD.t) / (H - PAD.t - PAD.b);
+    if (xd < 0 || xd > 1 || yd < 0 || yd > 1) return;
+    points.push({ x: xd, y: yd });
+    drawPoints(false);
+    // re-add just the new one with animation
+    const last = pointsG.lastChild;
+    last.classList.add('pt-new');
+    const { b0, b1, r2 } = fitOLS(points);
+    drawLine({ b0, b1 });
+    eqText.textContent = `ŷ = ${fmt(b0)} + ${fmt(b1)} x`;
+    eqStats.textContent = `n = ${points.length}    R² = ${fmt(r2)}`;
+  });
+
+  // Keyboard: R to refit
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'r' || e.key === 'R') {
+      if (document.activeElement && ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+      render();
+    }
+  });
+
+  // ---- name hover: reveal tiny histogram ----
+  const nameEl = document.getElementById('heroName');
+  let bumpSvg = null;
+  nameEl?.addEventListener('mouseenter', () => {
+    if (bumpSvg) return;
+    bumpSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    bumpSvg.setAttribute('viewBox', '0 0 100 30');
+    bumpSvg.style.cssText = 'position:absolute;left:50%;transform:translateX(-50%);top:-34px;width:100px;height:30px;pointer-events:none;opacity:0;transition:opacity .3s ease;';
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    let d = 'M0,28 ';
+    for (let i = 0; i <= 30; i++) {
+      const x = (i / 30) * 100;
+      const g = Math.exp(-0.5 * ((i - 15) / 5) ** 2);
+      const y = 28 - g * 24;
+      d += `L${x.toFixed(1)},${y.toFixed(1)} `;
+    }
+    d += 'L100,28 Z';
+    path.setAttribute('d', d);
+    path.setAttribute('fill', 'var(--accent-soft)');
+    path.setAttribute('stroke', 'var(--accent)');
+    path.setAttribute('stroke-width', '0.8');
+    bumpSvg.appendChild(path);
+    nameEl.style.position = 'relative';
+    nameEl.appendChild(bumpSvg);
+    requestAnimationFrame(() => { bumpSvg.style.opacity = 1; });
+  });
+  nameEl?.addEventListener('mouseleave', () => {
+    if (!bumpSvg) return;
+    bumpSvg.style.opacity = 0;
+    const b = bumpSvg; bumpSvg = null;
+    setTimeout(() => b?.remove(), 300);
+  });
+
+  // ---- Tweaks protocol ----
+  const tweaksEl = document.getElementById('tweaks');
+  const tweaksClose = document.getElementById('tweaksClose');
+  const twHue = document.getElementById('tw-hue');
+  const twHueOut = document.getElementById('tw-hue-out');
+  const twGrain = document.getElementById('tw-grain');
+  const twName = document.getElementById('tw-name');
+  const twHero = document.getElementById('tw-hero');
+  const twDensity = document.getElementById('tw-density');
+
+  // init tweak panel values
+  twHue.value = T.accentHue ?? 142;
+  twHueOut.textContent = twHue.value + '°';
+  twGrain.checked = T.showGrain !== false;
+  twName.value = T.heroName || 'Alex Chen';
+  const markSeg = (group, v) => group.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+  markSeg(twHero, T.heroVariant || 'regression');
+  markSeg(twDensity, T.density || 'cozy');
+
+  const pushEdits = (edits) => {
+    window.parent?.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+  };
+
+  twHue.addEventListener('input', () => {
+    applyHue(twHue.value);
+    twHueOut.textContent = twHue.value + '°';
+    pushEdits({ accentHue: Number(twHue.value) });
+  });
+  twGrain.addEventListener('change', () => {
+    applyGrain(twGrain.checked);
+    pushEdits({ showGrain: twGrain.checked });
+  });
+  twName.addEventListener('input', () => {
+    applyName(twName.value);
+    pushEdits({ heroName: twName.value });
+  });
+  twHero.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-v]');
+    if (!b) return;
+    markSeg(twHero, b.dataset.v);
+    variant = b.dataset.v;
+    render();
+    pushEdits({ heroVariant: b.dataset.v });
+  });
+  twDensity.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-v]');
+    if (!b) return;
+    markSeg(twDensity, b.dataset.v);
+    applyDensity(b.dataset.v);
+    pushEdits({ density: b.dataset.v });
+  });
+
+  tweaksClose?.addEventListener('click', () => {
+    tweaksEl.classList.add('hidden');
+  });
+
+  // Edit-mode protocol: listener FIRST, then announce availability.
+  window.addEventListener('message', (e) => {
+    if (!e.data || typeof e.data !== 'object') return;
+    if (e.data.type === '__activate_edit_mode') {
+      tweaksEl.classList.remove('hidden');
+    } else if (e.data.type === '__deactivate_edit_mode') {
+      tweaksEl.classList.add('hidden');
+    }
+  });
+  window.parent?.postMessage({ type: '__edit_mode_available' }, '*');
+
+  // ---- smooth anchor scroll (gentle) ----
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      window.scrollTo({ top: target.offsetTop - 60, behavior: 'smooth' });
+    });
+  });
+})();
+
+</script>
+</body>
+</html>
