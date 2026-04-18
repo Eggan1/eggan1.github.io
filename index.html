@@ -806,6 +806,17 @@ section + section { border-top: 1px solid var(--rule); }
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 .tweaks.hidden { transform: translateY(20px); opacity: 0; pointer-events: none; }
+.tweaks-toggle {
+  position: fixed; bottom: 24px; right: 24px; z-index: 999;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--card); color: var(--ink-2);
+  border: 1px solid var(--rule); cursor: pointer;
+  font-size: 18px; line-height: 1;
+  box-shadow: 0 8px 24px -8px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.tweaks-toggle:hover { color: var(--accent-ink); border-color: var(--accent); transform: rotate(45deg); }
+.tweaks-toggle.hidden { display: none; }
 .tw-head {
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px 16px;
@@ -1267,6 +1278,9 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 
 </main>
 
+<!-- Tweaks panel toggle -->
+<button id="tweaksToggle" class="tweaks-toggle" aria-label="Open tweaks">⚙</button>
+
 <!-- Tweaks panel -->
 <div id="tweaks" class="tweaks hidden" aria-hidden="true">
   <div class="tw-head">
@@ -1652,8 +1666,14 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
     pushEdits({ density: b.dataset.v });
   });
 
+  const tweaksToggle = document.getElementById('tweaksToggle');
   tweaksClose?.addEventListener('click', () => {
     tweaksEl.classList.add('hidden');
+    tweaksToggle?.classList.remove('hidden');
+  });
+  tweaksToggle?.addEventListener('click', () => {
+    tweaksEl.classList.remove('hidden');
+    tweaksToggle.classList.add('hidden');
   });
 
   // Edit-mode protocol: listener FIRST, then announce availability.
