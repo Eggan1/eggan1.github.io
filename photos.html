@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Photos — An Khanh Nguyen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+<style>
+  /* Subpage tweak: nav active state */
+  .nav a.active { color: var(--ink); }
+  .nav a.active::after { right: 0; }
+  /* The first section on a subpage shouldn't have a top border */
+  main > section:first-of-type { border-top: none; padding-top: clamp(60px, 9vh, 100px); }
+</style>
+</head>
+<body data-theme="light">
+
+<div class="grain"></div>
+
+<script>
+window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
+  "accentHue": 142,
+  "density": "airy",
+  "showGrain": false
+}/*EDITMODE-END*/;
+</script>
+
+<header class="topbar">
+  <a class="brand" href="index.html">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="22" height="22">
+        <circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M6 22 Q 11 6, 16 16 T 26 10" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+    </span>
+    <span class="brand-text">an<span class="sub">.notes</span></span>
+  </a>
+  <nav class="nav">
+    <a href="index.html#about">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="experience.html">Experience</a>
+  </nav>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <span class="sun">☀</span><span class="moon">☾</span>
+  </button>
+</header>
+
+<main>
+<section id="photos" class="photos">
+  <div class="section-head">
+    <span class="sec-num">§ 05</span>
+    <h2>Photos</h2>
+    <p class="sec-sub">A slow archive of light, mostly on film, mostly from walks.</p>
+  </div>
+
+  <div class="photo-grid">
+    <figure class="ph ph-1"><div class="ph-img placeholder"><span class="ph-label">35mm · morning fog</span></div><figcaption>San Diego, Jan</figcaption></figure>
+    <figure class="ph ph-2"><div class="ph-img placeholder"><span class="ph-label">window still life</span></div><figcaption>Desk, Feb</figcaption></figure>
+    <figure class="ph ph-3"><div class="ph-img placeholder"><span class="ph-label">neon reflection</span></div><figcaption>Convoy, Feb</figcaption></figure>
+    <figure class="ph ph-4"><div class="ph-img placeholder"><span class="ph-label">cat · 1/125s</span></div><figcaption>Mochi, Mar</figcaption></figure>
+    <figure class="ph ph-5"><div class="ph-img placeholder"><span class="ph-label">coastline · long lens</span></div><figcaption>Torrey Pines, Mar</figcaption></figure>
+    <figure class="ph ph-6"><div class="ph-img placeholder"><span class="ph-label">library aisle</span></div><figcaption>Geisel, Apr</figcaption></figure>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="foot-col">
+      <h5>Contact</h5>
+      <p>The best way to reach me is a long email. I answer all of them, slowly.</p>
+      <p><a href="mailto:24an.nk@vinuni.edu.vn">24an.nk@vinuni.edu.vn</a></p>
+    </div>
+    <div class="foot-col">
+      <h5>Elsewhere</h5>
+      <ul>
+        <li><a href="https://github.com/Eggan1" target="_blank" rel="noopener">github</a></li>
+        <li><a href="#">linkedin</a></li>
+      </ul>
+    </div>
+    <div class="foot-col sig">
+      <p class="sig-line">© 2026 · written in Hanoi</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Tweaks toggle button (always visible) -->
+<button id="tweaksToggle" class="tweaks-toggle" aria-label="Open tweaks panel">
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8">
+    <circle cx="7" cy="7" r="2"/>
+    <circle cx="17" cy="17" r="2"/>
+    <path d="M9 7h11M4 7h3M4 17h11M19 17h1"/>
+  </svg>
+  <span>Tweaks</span>
+</button>
+
+<!-- Tweaks panel -->
+<div id="tweaks" class="tweaks hidden" aria-hidden="true">
+  <div class="tw-head">
+    <strong>Tweaks</strong>
+    <button id="tweaksClose" aria-label="Close">×</button>
+  </div>
+  <div class="tw-body">
+    <label class="tw-row">
+      <span>Accent hue</span>
+      <input type="range" id="tw-hue" min="0" max="360" step="1" />
+      <output id="tw-hue-out"></output>
+    </label>
+    <div class="tw-row">
+      <span>Hero visual</span>
+      <div class="tw-seg" id="tw-hero">
+        <button data-v="regression">regression</button>
+        <button data-v="density">density</button>
+        <button data-v="walk">random walk</button>
+      </div>
+    </div>
+    <div class="tw-row">
+      <span>Density</span>
+      <div class="tw-seg" id="tw-density">
+        <button data-v="cozy">cozy</button>
+        <button data-v="airy">airy</button>
+      </div>
+    </div>
+    <label class="tw-row">
+      <span>Paper grain</span>
+      <input type="checkbox" id="tw-grain" />
+    </label>
+  </div>
+  <p class="tw-foot">Changes persist on reload.</p>
+</div>
+
+<script src="site.js"></script>
+</body>
+</html>

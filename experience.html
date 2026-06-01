@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Experience — An Khanh Nguyen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+<style>
+  /* Subpage tweak: nav active state */
+  .nav a.active { color: var(--ink); }
+  .nav a.active::after { right: 0; }
+  /* The first section on a subpage shouldn't have a top border */
+  main > section:first-of-type { border-top: none; padding-top: clamp(60px, 9vh, 100px); }
+  /* CV viewer */
+  .cv-viewer {
+    margin-top: 56px;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--card);
+    box-shadow: var(--paper-shadow);
+  }
+  .cv-viewer-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--f-sans);
+    font-size: 13px;
+  }
+  .cv-label {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .cv-download {
+    color: var(--accent-ink);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+  .cv-viewer iframe {
+    display: block;
+    width: 100%;
+    height: 80vh;
+    min-height: 600px;
+    border: none;
+    background: #fff;
+  }
+</style>
+</head>
+<body data-theme="light">
+
+<div class="grain"></div>
+
+<script>
+window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
+  "accentHue": 142,
+  "density": "airy",
+  "showGrain": false
+}/*EDITMODE-END*/;
+</script>
+
+<header class="topbar">
+  <a class="brand" href="index.html">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="22" height="22">
+        <circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M6 22 Q 11 6, 16 16 T 26 10" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+    </span>
+    <span class="brand-text">an<span class="sub">.notes</span></span>
+  </a>
+  <nav class="nav">
+    <a href="index.html#about">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="experience.html" aria-current="page" class="active">Experience</a>
+  </nav>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <span class="sun">☀</span><span class="moon">☾</span>
+  </button>
+</header>
+
+<main>
+<section id="experience" class="experience">
+  <div class="section-head">
+    <span class="sec-num">§ 04</span>
+    <h2>Experience</h2>
+    <p class="sec-sub">A shortened CV. <a href="assets/CV.pdf" target="_blank" rel="noopener" class="inline-link">download the full pdf →</a></p>
+  </div>
+
+  <ol class="timeline">
+    <li>
+      <span class="tl-year">2026</span>
+      <div class="tl-body">
+        <h4>Visiting Research Student · SCCN, UC San Diego</h4>
+        <p>Incoming research supervised by Prof. Tzyy-Ping Jung — the lab behind EEGLAB and seminal work on Independent Component Analysis for EEG / brain–computer interfaces.</p>
+      </div>
+    </li>
+    <li>
+      <span class="tl-year">2026</span>
+      <div class="tl-body">
+        <h4>Undergraduate Research Assistant · LSM's CoLab, VinUniversity</h4>
+        <p>Currently revising an existing paper on federated learning robustness — extending its analysis and building on its experimental framework. Write-up coming soon.</p>
+      </div>
+    </li>
+    <li>
+      <span class="tl-year">2026</span>
+      <div class="tl-body">
+        <h4>Tutor · Statistics for Social Sciences, VinUniversity</h4>
+        <p>Supported instruction for STAT1011, facilitating review sessions and holding recitation classes for undergraduate students.</p>
+      </div>
+    </li>
+    <li>
+      <span class="tl-year">2024–26</span>
+      <div class="tl-body">
+        <h4>Technical Developer · VinUniversity Library</h4>
+        <p>Created augmented reality learning experiences by designing 3D assets in Blender and deploying them via online AR platforms. Developed and optimized 3D models for AR/VR use.</p>
+      </div>
+    </li>
+    <li>
+      <span class="tl-year">2024</span>
+      <div class="tl-body">
+        <h4>Began BS at VinUniversity</h4>
+        <p>BS Data Science, minor in Economics. Dean's List, Spring 2025.</p>
+      </div>
+    </li>
+  </ol>
+
+  <!-- Embedded CV viewer -->
+  <div class="cv-viewer">
+    <div class="cv-viewer-head">
+      <span class="cv-label">Full CV</span>
+      <a href="assets/CV.pdf" target="_blank" rel="noopener" class="cv-download">open in new tab ↗</a>
+    </div>
+    <iframe src="assets/CV.pdf#toolbar=0&navpanes=0" title="An Khanh Nguyen — CV" loading="lazy"></iframe>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="foot-col">
+      <h5>Contact</h5>
+      <p>The best way to reach me is a long email. I answer all of them, slowly.</p>
+      <p><a href="mailto:24an.nk@vinuni.edu.vn">24an.nk@vinuni.edu.vn</a></p>
+    </div>
+    <div class="foot-col">
+      <h5>Elsewhere</h5>
+      <ul>
+        <li><a href="https://github.com/Eggan1" target="_blank" rel="noopener">github</a></li>
+        <li><a href="#">linkedin</a></li>
+      </ul>
+    </div>
+    <div class="foot-col sig">
+      <p class="sig-line">© 2026 · written in Hanoi</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Tweaks toggle button (always visible) -->
+<button id="tweaksToggle" class="tweaks-toggle" aria-label="Open tweaks panel">
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8">
+    <circle cx="7" cy="7" r="2"/>
+    <circle cx="17" cy="17" r="2"/>
+    <path d="M9 7h11M4 7h3M4 17h11M19 17h1"/>
+  </svg>
+  <span>Tweaks</span>
+</button>
+
+<!-- Tweaks panel -->
+<div id="tweaks" class="tweaks hidden" aria-hidden="true">
+  <div class="tw-head">
+    <strong>Tweaks</strong>
+    <button id="tweaksClose" aria-label="Close">×</button>
+  </div>
+  <div class="tw-body">
+    <label class="tw-row">
+      <span>Accent hue</span>
+      <input type="range" id="tw-hue" min="0" max="360" step="1" />
+      <output id="tw-hue-out"></output>
+    </label>
+    <div class="tw-row">
+      <span>Hero visual</span>
+      <div class="tw-seg" id="tw-hero">
+        <button data-v="regression">regression</button>
+        <button data-v="density">density</button>
+        <button data-v="walk">random walk</button>
+      </div>
+    </div>
+    <div class="tw-row">
+      <span>Density</span>
+      <div class="tw-seg" id="tw-density">
+        <button data-v="cozy">cozy</button>
+        <button data-v="airy">airy</button>
+      </div>
+    </div>
+    <label class="tw-row">
+      <span>Paper grain</span>
+      <input type="checkbox" id="tw-grain" />
+    </label>
+  </div>
+  <p class="tw-foot">Changes persist on reload.</p>
+</div>
+
+<script src="site.js"></script>
+</body>
+</html>
