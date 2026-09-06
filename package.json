@@ -1,0 +1,16 @@
+{
+  "name": "eggan1.github.io",
+  "private": true,
+  "type": "module",
+  "description": "Personal site. Pages are written in TypeScript under src/ and built to static HTML in the repository root.",
+  "scripts": {
+    "build": "node src/build.ts",
+    "cv": "cd cv && pdflatex -interaction=nonstopmode cv.tex && pdflatex -interaction=nonstopmode cv.tex && cp cv.pdf ../assets/CV.pdf && rm -f cv.aux cv.log cv.out",
+    "dev": "node src/dev.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}

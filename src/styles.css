@@ -1,0 +1,241 @@
+/* -----------------------------------------------------------------
+   An Khanh Nguyen — personal site
+   A quiet academic layout: one 700px column, serif throughout.
+   ----------------------------------------------------------------- */
+
+:root {
+  --ink: #000;
+  --ink-soft: #444;
+  --ink-faint: #767676;
+  --accent: #ff0f00;
+  --rule: rgba(0, 0, 0, 0.1);
+  --measure: 700px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--ink);
+  font-family: Piazzolla, Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.container {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* --- masthead ---------------------------------------------------- */
+
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 50px 0 22px;
+}
+
+.name {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav { font-size: 15px; }
+
+.nav a {
+  color: var(--accent);
+  text-decoration: none;
+  /* Never hyphenate an address or a title across a line break. */
+  hyphens: manual;
+}
+
+.nav a:hover { text-decoration: underline; }
+
+.nav a.current {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.sep {
+  color: var(--ink-faint);
+  padding: 0 8px;
+}
+
+hr {
+  height: 0;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--rule);
+}
+
+/* --- prose ------------------------------------------------------- */
+
+main { padding: 4px 0 42px; }
+
+section { margin: 0 0 12px; }
+
+h2 {
+  margin: 34px 0 14px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+p {
+  margin: 0 0 16px;
+  text-align: justify;
+  hyphens: auto;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  /* Never hyphenate an address or a title across a line break. */
+  hyphens: manual;
+}
+
+a:hover { text-decoration: underline; }
+
+.lede {
+  color: var(--ink-soft);
+  margin-top: 20px;
+}
+
+.byline {
+  margin: -6px 0 18px;
+  color: var(--ink-faint);
+  font-size: 14px;
+  text-align: left;
+}
+
+.empty {
+  color: var(--ink-faint);
+  font-style: italic;
+  text-align: left;
+}
+
+.note {
+  margin: 4px 0 0;
+  color: var(--ink-soft);
+  font-size: 15px;
+  text-align: left;
+}
+
+.addresses {
+  text-align: left;
+  word-spacing: normal;
+}
+
+.address {
+  display: block;
+  color: var(--ink);
+}
+
+/* --- portrait ---------------------------------------------------- */
+
+.portrait {
+  float: right;
+  width: 190px;
+  margin: 4px 0 18px 26px;
+}
+
+.portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+}
+
+/* --- entries ----------------------------------------------------- */
+
+.entries {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.entries > li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.entries > li:first-child { padding-top: 2px; }
+
+.entry-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+
+.entry-head.sub { margin-bottom: 0; }
+
+.role {
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.year {
+  flex: none;
+  color: var(--ink-faint);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- footer ------------------------------------------------------ */
+
+.foot {
+  padding: 18px 0 60px;
+  font-size: 14px;
+  color: var(--ink-faint);
+}
+
+.foot p {
+  margin: 0 0 4px;
+  text-align: left;
+}
+
+.foot .sep { padding: 0 6px; }
+
+/* --- small screens ----------------------------------------------- */
+
+@media (max-width: 640px) {
+  .masthead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding-top: 34px;
+  }
+
+  .portrait {
+    float: none;
+    width: 150px;
+    margin: 0 0 18px;
+  }
+
+  .entry-head {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .entry-head.sub { margin-top: 2px; }
+
+  p { text-align: left; }
+}

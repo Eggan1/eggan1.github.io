@@ -1,0 +1,155 @@
+%% Harvard-style CV (FAS / Mignone Center for Career Success format):
+%% Times New Roman-style 11pt, one-inch margins, no color/graphics,
+%% right-aligned dates, bold small-caps section headings with full-width rules,
+%% and action-verb bullets.
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[empty]{fullpage}
+\usepackage{mathptmx}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{url}
+
+\pagestyle{fancy}
+\fancyhf{}\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\urlstyle{same}
+\raggedright
+\setlength{\tabcolsep}{0in}
+\setlength{\footskip}{12pt}
+\def\UrlBreaks{\do\/\do-}
+\Urlmuskip=0mu plus 1mu\relax
+
+% Harvard section heading: bold, small-caps, full-width rule beneath
+\titleformat{\section}{\large\bfseries\scshape}{}{0em}{}[\vspace{1pt}\titlerule]
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+
+%-------------------------
+\newcommand{\resumeItem}[2]{\item\small{\textbf{#1}{: #2}}}
+\newcommand{\resumeItemNH}[1]{\item\small{#1}}
+
+\newcommand{\resumeSubheading}[4]{
+  \item
+    \begin{tabular*}{0.98\textwidth}{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{#3} & \textit{#4} \\
+    \end{tabular*}\vspace{-3pt}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}}
+\renewcommand{\labelitemii}{$\bullet$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*,label={},itemsep=7pt,topsep=5pt,parsep=0pt,partopsep=0pt]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}\vspace{2pt}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=1.5em,itemsep=2pt,topsep=3pt,parsep=0pt,partopsep=0pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+\begin{document}
+
+%----------HEADING-----------------
+\begin{center}
+  {\LARGE\bfseries Nguyen Khanh An}\\[5pt]
+  \href{mailto:nguyenkhanhan0410@gmail.com}{nguyenkhanhan0410@gmail.com}
+\end{center}
+
+%-----------EDUCATION-----------------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {VinUniversity}{Hanoi, Vietnam}
+      {B.S. in Data Science, Minor in Economics}{Sep 2024 -- Present}
+  \resumeSubHeadingListEnd
+
+%-----------RESEARCH INTERESTS-----------------
+\section{Research Interests}
+  \small{Computational neuroscience; eye tracking and EEG; human--computer interaction; adaptive learning; applied statistics}
+
+%-----------RESEARCH EXPERIENCE-----------------
+\section{Research Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Swartz Center for Computational Neuroscience (SCCN), UC San Diego}{La Jolla, CA}
+      {Visiting Research Student}{Jun 2026 -- Present}
+      \resumeItemListStart
+        \resumeItemNH{Develop an implicit gaze-calibration pipeline that learns from natural attention events and tests whether personalized gaze accuracy improves over time relative to one-time explicit calibration.}
+        \resumeItemNH{Design a naturalistic protocol spanning low- and high-disturbance activities, combining wearable eye-tracking device tracking with synchronized two-channel EEG to compare event-related responses across levels of visual attention.}
+        \resumeItemNH{Build a video-annotation platform to establish gaze ground truth and explore vision--language-model assistance for reducing manual target labeling.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {VinUniversity}{Remote}
+      {Research Assistant --- Urban Travel-Time \& Routing Data}{Jun 2026 -- Present}
+      \resumeItemListStart
+        \resumeItemNH{Develop QA/QC and exploratory-analysis code in Python and DuckDB for large-scale Google Maps travel-time data collected through an AWS-based pipeline.}
+
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {LSM's CoLab, VinUniversity / Lancaster University}{Hanoi, Vietnam}
+      {Research Assistant --- Robust Federated Learning}{Feb 2026 -- Present}
+      \resumeItemListStart
+        \resumeItemNH{Extend the \href{https://openaccess.thecvf.com/content/WACV2026/papers/Alharbi_SD-CSFL_A_Synthetic_Data-Driven_Conformity_Scoring_Framework_for_Robust_Federated_WACV_2026_paper.pdf}{original robust-federated-learning framework}, evaluating its defenses on CIFAR-10 and Birds-525 under harder non-IID and client-poisoning regimes.}
+        \resumeItemNH{Add distribution-level vulnerability diagnostics, including Wasserstein distance and score-band overlap, to reveal failure behaviors absent from the original evaluation.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------TEACHING EXPERIENCE-----------------
+\section{Teaching Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {College of Arts and Sciences, VinUniversity}{Hanoi, Vietnam}
+      {Tutor --- STAT1011 Statistics for Social Sciences}{Jan 2026 -- Jun 2026}
+      \resumeItemListStart
+        \resumeItemNH{Led recitation and review sessions for 50 undergraduates on descriptive statistics, hypothesis testing, and linear regression.}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%-----------WORK EXPERIENCE-----------------
+\section{Work Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {VinUniversity Library}{Hanoi, Vietnam}
+      {Technical Media Developer}{Sep 2024 -- Jan 2026}
+      \resumeItemListStart
+        \resumeItemNH{Built AR learning experiences in Blender and deployed them through web-based AR platforms.}
+        \resumeItemNH{Optimized 3D models for real-time AR/VR through topology, UV mapping, texturing, and performance tuning.}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%------------PROJECTS------------------
+\section{Projects}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {VinUni Room Booking}{Hanoi, Vietnam}
+      {Frontend Lead (Team of 4)}{Apr 2026 -- May 2026}
+      \resumeItemListStart
+        \resumeItemNH{Built the frontend with Vaadin Flow and Spring Boot, persisting application data to MySQL through JDBC.}
+        \resumeItemNH{Designed an invite-only booking flow with attendee selection, SQL-based conflict detection, six validation rules, and a category-based admin approval queue.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {EcoBox: E-Ink Weather Dashboard}{Hanoi, Vietnam}
+      {Facilitator}{Dec 2025 -- Jan 2026}
+      \resumeItemListStart
+        \resumeItemNH{Engineered and 3D-printed a PLA enclosure in AutoCAD with tolerances for a 7.5-inch E-Ink HAT and PCB.}
+        \resumeItemNH{Helped build a Python and headless-browser pipeline that rasterizes dynamic HTML/CSS into bitmaps tuned to a three-color E-Ink palette.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%--------SKILLS------------
+\section{Skills}
+  \resumeSubHeadingListStart
+    \resumeSubItem{Programming \& Markup}{Python, R, Java, SQL, {\LaTeX}}
+    \resumeSubItem{Data \& Research}{DuckDB, pandas, NumPy, Git / GitHub}
+  \resumeSubHeadingListEnd
+
+\end{document}
