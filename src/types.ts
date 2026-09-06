@@ -77,8 +77,6 @@ export interface Article {
   readonly slug: string;
   readonly title: string;
   readonly date?: string;
-  /** One line shown on the index that links to it. */
-  readonly blurb?: Prose;
   readonly body: readonly Prose[];
 }
 
@@ -87,8 +85,6 @@ export interface Page {
   readonly slug: string;
   /** Browser tab title, appended with the site name. */
   readonly title: string;
-  /** Which nav entry to mark as current. */
-  readonly navHref?: string;
   /** Skipped by the build. Use for pages that are not ready to publish. */
   readonly draft?: boolean;
   /** `base` is the prefix back to the site root, e.g. `../` one level down. */

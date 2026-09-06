@@ -1,6 +1,6 @@
 import type { Page } from '../types.ts';
 import { site } from '../content/site.ts';
-import { head, html, link, meta, raw, render, title, body, type Html } from './html.ts';
+import { head, html, link, meta, render, title, body, type Html } from './html.ts';
 
 const FONT = 'https://fonts.googleapis.com/css2?family=Piazzolla:ital,wght@0,400;0,600;0,700;1,400&display=swap';
 

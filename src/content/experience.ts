@@ -1,6 +1,6 @@
 import type { ExperienceGroup } from '../types.ts';
 
-export const cv = { href: 'assets/CV.pdf', label: 'Full CV', updated: 'Aug 28' };
+export const cv = { href: 'assets/CV.pdf', label: 'Full CV', updated: 'August 2026' };
 
 export const experience: readonly ExperienceGroup[] = [
   {

@@ -18,7 +18,7 @@ export function prose(text: Prose): Html {
 const external = (href: string) =>
   href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {};
 
-export function siteHeader(current?: string, base = ''): Html {
+function siteHeader(current?: string, base = ''): Html {
   return [
     header({ class: 'masthead' },
       a({ class: 'name', href: `${base}index.html` }, site.name),
@@ -40,7 +40,7 @@ export function siteHeader(current?: string, base = ''): Html {
   ];
 }
 
-export function siteFooter(): Html {
+function siteFooter(): Html {
   return [
     hr({}),
     footer({ class: 'foot' },

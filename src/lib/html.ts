@@ -14,12 +14,7 @@ export interface Element {
   readonly children: readonly Html[];
 }
 
-/** Pre-escaped markup. Only for things we author by hand, like inline SVG. */
-export interface Raw {
-  readonly raw: string;
-}
-
-export type Html = string | number | Element | Raw | readonly Html[] | null | undefined | false;
+export type Html = string | number | Element | readonly Html[] | null | undefined | false;
 
 /** Tags that must not be given a closing tag. */
 const VOID_TAGS = new Set(['area', 'base', 'br', 'col', 'hr', 'img', 'input', 'link', 'meta', 'source']);
@@ -31,8 +26,6 @@ const VOID_TAGS = new Set(['area', 'base', 'br', 'col', 'hr', 'img', 'input', 'l
  */
 const INLINE_TAGS = new Set(['a', 'em', 'strong', 'code', 'span', 'br', 'img', 'sup', 'sub', 'time']);
 
-export const raw = (markup: string): Raw => ({ raw: markup });
-
 export function h(tag: string, attrs: Attrs = {}, ...children: Html[]): Element {
   return { tag, attrs, children };
 }
@@ -40,10 +33,7 @@ export function h(tag: string, attrs: Attrs = {}, ...children: Html[]): Element 
 const isElement = (node: unknown): node is Element =>
   typeof node === 'object' && node !== null && 'tag' in node;
 
-const isRaw = (node: unknown): node is Raw =>
-  typeof node === 'object' && node !== null && 'raw' in node;
-
-export function escape(text: string): string {
+function escape(text: string): string {
   return text
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -60,7 +50,7 @@ function renderAttrs(attrs: Attrs): string {
 
 function isInline(node: Html): boolean {
   if (node === null || node === undefined || node === false) return true;
-  if (typeof node === 'string' || typeof node === 'number' || isRaw(node)) return true;
+  if (typeof node === 'string' || typeof node === 'number') return true;
   if (Array.isArray(node)) return node.every(isInline);
   return isElement(node) && INLINE_TAGS.has(node.tag);
 }
@@ -73,7 +63,6 @@ function isInline(node: Html): boolean {
 export function render(node: Html, indent = 0, inline = false): string {
   if (node === null || node === undefined || node === false) return '';
   if (typeof node === 'string' || typeof node === 'number') return escape(String(node));
-  if (isRaw(node)) return node.raw;
   if (Array.isArray(node)) return node.map((child) => render(child, indent, inline)).join('');
   if (!isElement(node)) return '';
 
@@ -105,25 +94,15 @@ export const nav = tag('nav');
 export const main = tag('main');
 export const footer = tag('footer');
 export const section = tag('section');
-export const article = tag('article');
 export const div = tag('div');
 export const span = tag('span');
 export const p = tag('p');
 export const a = tag('a');
 export const em = tag('em');
-export const strong = tag('strong');
-export const code = tag('code');
 export const ul = tag('ul');
-export const ol = tag('ol');
 export const li = tag('li');
-export const dl = tag('dl');
-export const dt = tag('dt');
-export const dd = tag('dd');
-export const h1 = tag('h1');
 export const h2 = tag('h2');
 export const h3 = tag('h3');
 export const hr = tag('hr');
 export const img = tag('img');
 export const figure = tag('figure');
-export const figcaption = tag('figcaption');
-export const iframe = tag('iframe');
