@@ -3,7 +3,7 @@ import type { Article } from '../types.ts';
 export const adviceEmpty = 'Writing in progress.';
 
 const breakingIntoResearch: Article = {
-  slug: 'advice/breaking-into-research.html',
+  route: 'advice/breaking-into-research',
   title: 'Breaking into Research as a Freshman',
   body: [
     'So you are a freshman who wants to break into research?',

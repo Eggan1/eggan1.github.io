@@ -19,12 +19,12 @@ export const about: About = {
     ],
     [
       'Are you an undergrad who needs advice on research? Go to ',
-      { text: 'Advice', href: 'advice.html' },
+      { text: 'Advice', href: '/advice' },
       '.',
     ],
   ],
   portrait: {
-    src: 'assets/prof_pic.JPG',
+    src: '/assets/prof_pic.JPG',
     alt: 'Portrait of Khanh An Nguyen',
   },
 };

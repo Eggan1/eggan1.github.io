@@ -1,6 +1,6 @@
 import type { Collection } from '../types.ts';
 
-const dir = 'assets/stat1011';
+const dir = '/assets/stat1011';
 
 export const teaching: Collection = {
   intro: [

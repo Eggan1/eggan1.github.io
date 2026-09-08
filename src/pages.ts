@@ -9,10 +9,10 @@ import {
 import { a, figure, img, p } from './lib/html.ts';
 
 const home: Page = {
-  slug: 'index.html',
+  route: '',
   title: 'About',
-  render: (base) =>
-    page('index.html', base,
+  render: () =>
+    page('/',
       block('about', 'About',
         about.portrait
           ? figure({ class: 'portrait' },
@@ -25,10 +25,10 @@ const home: Page = {
 };
 
 const experiencePage: Page = {
-  slug: 'experience.html',
+  route: 'experience',
   title: 'Experience',
-  render: (base) =>
-    page('experience.html', base,
+  render: () =>
+    page('/experience',
       p({ class: 'lede' },
         `Updated ${cv.updated}. `,
         a({ href: cv.href, target: '_blank', rel: 'noopener' }, cv.label),
@@ -39,23 +39,22 @@ const experiencePage: Page = {
 };
 
 const teachingPage: Page = {
-  slug: 'teaching.html',
+  route: 'teaching',
   title: 'Teaching',
-  render: (base) =>
-    page('teaching.html', base, block('teaching', 'Teaching', resourceList(teaching))),
+  render: () => page('/teaching', block('teaching', 'Teaching', resourceList(teaching))),
 };
 
 const advicePage: Page = {
-  slug: 'advice.html',
+  route: 'advice',
   title: 'Advice',
-  render: (base) =>
-    page('advice.html', base,
+  render: () =>
+    page('/advice',
       block('advice', 'Advice',
         resourceList({
           empty: adviceEmpty,
           items: articles.map((article) => ({
             title: article.title,
-            href: article.slug,
+            href: `/${article.route}`,
             date: article.date,
           })),
         }),
@@ -65,9 +64,9 @@ const advicePage: Page = {
 
 /** Each piece of writing becomes its own page under advice/. */
 const articlePages: readonly Page[] = articles.map((article) => ({
-  slug: article.slug,
+  route: article.route,
   title: article.title,
-  render: (base) => page('advice.html', base, articleView(article)),
+  render: () => page('/advice', articleView(article)),
 }));
 
 export const pages: readonly Page[] = [

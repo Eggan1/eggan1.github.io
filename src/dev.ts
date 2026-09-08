@@ -71,8 +71,12 @@ const server = createServer(async (req, res) => {
     return;
   }
 
-  const rel = url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname).slice(1);
-  const file = join(ROOT, normalize(rel).replace(/^(\.\.[/\\])+/, ''));
+  const pathname = decodeURIComponent(url.pathname);
+  const rel = normalize(pathname.replace(/^\/+/, '')).replace(/^(\.\.[/\\])+/, '');
+  // Extensionless routes resolve to their directory index, as GitHub Pages does.
+  // The test is on the URL, not the file path: the project directory itself
+  // ends in `.io`, which would otherwise read as an extension.
+  const file = extname(pathname) === '' ? join(ROOT, rel, 'index.html') : join(ROOT, rel);
 
   try {
     const body = await readFile(file);

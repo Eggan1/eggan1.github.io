@@ -4,10 +4,10 @@ export const site: SiteConfig = {
   name: 'Khanh An Nguyen',
   lang: 'en',
   nav: [
-    { label: 'About', href: 'index.html' },
-    { label: 'Experience', href: 'experience.html' },
-    { label: 'Teaching', href: 'teaching.html' },
-    { label: 'Advice', href: 'advice.html' },
+    { label: 'About', href: '/' },
+    { label: 'Experience', href: '/experience' },
+    { label: 'Teaching', href: '/teaching' },
+    { label: 'Advice', href: '/advice' },
   ],
   emails: [
     { label: 'Personal', address: 'nguyenkhanhan0410@gmail.com' },

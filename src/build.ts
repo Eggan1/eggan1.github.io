@@ -10,7 +10,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { pages } from './pages.ts';
-import { baseFor, document } from './lib/layout.ts';
+import { document } from './lib/layout.ts';
 
 const SRC = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(SRC, '..');
@@ -20,18 +20,20 @@ export async function build(): Promise<string[]> {
 
   const written = await Promise.all(
     published.map(async (page) => {
-      const out = join(ROOT, page.slug);
+      // Every route is served as a directory index, so URLs carry no extension.
+      const file = page.route === '' ? 'index.html' : join(page.route, 'index.html');
+      const out = join(ROOT, file);
       await mkdir(dirname(out), { recursive: true });
-      await writeFile(out, document(page, page.render(baseFor(page.slug))), 'utf8');
-      return page.slug;
+      await writeFile(out, document(page, page.render()), 'utf8');
+      return `/${page.route}`.replace(/\/$/, '/');
     }),
   );
 
   await copyFile(join(SRC, 'styles.css'), join(ROOT, 'styles.css'));
   written.push('styles.css');
 
-  const drafts = pages.filter((page) => page.draft).map((page) => page.slug);
-  return [...written, ...drafts.map((slug) => `${slug} (draft, skipped)`)];
+  const drafts = pages.filter((page) => page.draft).map((page) => page.route);
+  return [...written, ...drafts.map((route) => `/${route} (draft, skipped)`)];
 }
 
 // Only run when invoked directly, so the dev server can import build().

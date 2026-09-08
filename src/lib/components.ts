@@ -18,16 +18,16 @@ export function prose(text: Prose): Html {
 const external = (href: string) =>
   href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {};
 
-function siteHeader(current?: string, base = ''): Html {
+function siteHeader(current?: string): Html {
   return [
     header({ class: 'masthead' },
-      a({ class: 'name', href: `${base}index.html` }, site.name),
+      a({ class: 'name', href: '/' }, site.name),
       nav({ class: 'nav' },
         site.nav.flatMap((item, i) => [
           i > 0 ? span({ class: 'sep', 'aria-hidden': 'true' }, '|') : null,
           a(
             {
-              href: `${base}${item.href}`,
+              href: item.href,
               class: item.href === current ? 'current' : undefined,
               'aria-current': item.href === current ? 'page' : undefined,
             },
@@ -118,8 +118,8 @@ export function contactBlock(): Html {
   );
 }
 
-export function page(current: string | undefined, base: string, ...content: Html[]): Html {
-  return div({ class: 'container' }, siteHeader(current, base), main({}, ...content), siteFooter());
+export function page(current: string | undefined, ...content: Html[]): Html {
+  return div({ class: 'container' }, siteHeader(current), main({}, ...content), siteFooter());
 }
 
 /** A single piece of writing, on its own page. */

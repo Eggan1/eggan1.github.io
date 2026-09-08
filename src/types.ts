@@ -73,20 +73,19 @@ export interface Collection {
 
 /** A piece of writing that gets its own page. */
 export interface Article {
-  /** Output path, e.g. `advice/breaking-into-research.html`. */
-  readonly slug: string;
+  /** Clean URL path, e.g. `advice/breaking-into-research` (no extension). */
+  readonly route: string;
   readonly title: string;
   readonly date?: string;
   readonly body: readonly Prose[];
 }
 
 export interface Page {
-  /** Output filename, e.g. `index.html`. */
-  readonly slug: string;
+  /** Clean URL path with no extension; the empty string is the home page. */
+  readonly route: string;
   /** Browser tab title, appended with the site name. */
   readonly title: string;
   /** Skipped by the build. Use for pages that are not ready to publish. */
   readonly draft?: boolean;
-  /** `base` is the prefix back to the site root, e.g. `../` one level down. */
-  readonly render: (base: string) => Html;
+  readonly render: () => Html;
 }
