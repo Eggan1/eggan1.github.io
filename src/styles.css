@@ -7,7 +7,8 @@
   --ink: #000;
   --ink-soft: #444;
   --ink-faint: #767676;
-  --accent: #ff0f00;
+  /* Dark Blue from the Word standard colour palette. */
+  --accent: #002060;
   --rule: rgba(0, 0, 0, 0.1);
   --measure: 700px;
 }
