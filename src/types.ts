@@ -72,12 +72,21 @@ export interface Collection {
 }
 
 /** A piece of writing that gets its own page. */
+/** A numbered or bulleted list inside an article. */
+export interface List {
+  readonly list: readonly Prose[];
+  readonly ordered?: boolean;
+}
+
+/** Articles are built from paragraphs and lists. */
+export type Block = Prose | List;
+
 export interface Article {
   /** Clean URL path, e.g. `advice/breaking-into-research` (no extension). */
   readonly route: string;
   readonly title: string;
   readonly date?: string;
-  readonly body: readonly Prose[];
+  readonly body: readonly Block[];
 }
 
 export interface Page {

@@ -1,7 +1,7 @@
-import type { Article, Collection, ExperienceGroup, Inline, Prose } from '../types.ts';
+import type { Article, Block, Collection, ExperienceGroup, Inline, List, Prose } from '../types.ts';
 import { site } from '../content/site.ts';
 import {
-  a, div, em, footer, h2, h3, header, hr, li, main, nav, p, section, span, ul,
+  a, div, em, footer, h2, h3, header, hr, li, main, nav, ol, p, section, span, ul,
   type Html,
 } from './html.ts';
 
@@ -123,10 +123,20 @@ export function page(current: string | undefined, ...content: Html[]): Html {
 }
 
 /** A single piece of writing, on its own page. */
+/** A list is an object; a paragraph is a string or an array of inline runs. */
+const isList = (block: Block): block is List =>
+  typeof block === 'object' && block !== null && !Array.isArray(block);
+
 export function articleView(item: Article): Html {
   return section({ id: 'article' },
     h2({}, item.title),
     item.date ? p({ class: 'byline' }, item.date) : null,
-    item.body.map((paragraph) => p({}, prose(paragraph))),
+    item.body.map((block) => {
+      if (!isList(block)) return p({}, prose(block));
+      const items = block.list.map((entry) => li({}, prose(entry)));
+      return block.ordered === false
+        ? ul({ class: 'points' }, items)
+        : ol({ class: 'points' }, items);
+    }),
   );
 }

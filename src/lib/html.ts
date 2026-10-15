@@ -100,6 +100,7 @@ export const p = tag('p');
 export const a = tag('a');
 export const em = tag('em');
 export const ul = tag('ul');
+export const ol = tag('ol');
 export const li = tag('li');
 export const h2 = tag('h2');
 export const h3 = tag('h3');
