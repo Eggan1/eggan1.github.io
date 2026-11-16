@@ -1,5 +1,8 @@
-import type { Article, Block, Collection, ExperienceGroup, Inline, List, Prose } from '../types.ts';
+import type {
+  Article, Block, Collection, ExperienceGroup, Inline, List, Prose, Publication,
+} from '../types.ts';
 import { site } from '../content/site.ts';
+import { SELF } from '../content/research.ts';
 import {
   a, div, em, footer, h2, h3, header, hr, li, main, nav, ol, p, section, span, ul,
   type Html,
@@ -24,14 +27,19 @@ function siteHeader(current?: string): Html {
       a({ class: 'name', href: '/' }, site.name),
       nav({ class: 'nav' },
         site.nav.flatMap((item, i) => [
-          i > 0 ? span({ class: 'sep', 'aria-hidden': 'true' }, '|') : null,
-          a(
-            {
-              href: item.href,
-              class: item.href === current ? 'current' : undefined,
-              'aria-current': item.href === current ? 'page' : undefined,
-            },
-            item.label,
+          // A real space between items is the only place the nav may wrap; the
+          // separator is tied to the link before it so it never starts a line.
+          i > 0 ? ' ' : null,
+          span({ class: 'nav-item' },
+            a(
+              {
+                href: item.href,
+                class: item.href === current ? 'current' : undefined,
+                'aria-current': item.href === current ? 'page' : undefined,
+              },
+              item.label,
+            ),
+            i < site.nav.length - 1 ? span({ class: 'sep', 'aria-hidden': 'true' }, '|') : null,
           ),
         ]),
       ),
@@ -121,22 +129,53 @@ export function contactBlock(): Html {
 export function page(current: string | undefined, ...content: Html[]): Html {
   return div({ class: 'container' }, siteHeader(current), main({}, ...content), siteFooter());
 }
+/** Renders a body of paragraphs and lists. Shared by articles and research. */
+function blocks(body: readonly Block[]): Html {
+  return body.map((block) => {
+    if (!isList(block)) return p({}, prose(block));
+    const items = block.list.map((entry) => li({}, prose(entry)));
+    return block.ordered === false
+      ? ul({ class: 'points' }, items)
+      : ol({ class: 'points' }, items);
+  });
+}
 
-/** A single piece of writing, on its own page. */
 /** A list is an object; a paragraph is a string or an array of inline runs. */
 const isList = (block: Block): block is List =>
   typeof block === 'object' && block !== null && !Array.isArray(block);
 
+/** A single piece of writing, on its own page. */
 export function articleView(item: Article): Html {
   return section({ id: 'article' },
     h2({}, item.title),
     item.date ? p({ class: 'byline' }, item.date) : null,
-    item.body.map((block) => {
-      if (!isList(block)) return p({}, prose(block));
-      const items = block.list.map((entry) => li({}, prose(entry)));
-      return block.ordered === false
-        ? ul({ class: 'points' }, items)
-        : ol({ class: 'points' }, items);
-    }),
+    blocks(item.body),
+  );
+}
+
+export function publicationList(items: readonly Publication[]): Html {
+  return ol({ class: 'citations' },
+    items.map((item) =>
+      li({},
+        span({ class: 'authors' },
+          item.authors.flatMap((name, i) => [
+            i > 0 ? ', ' : null,
+            name === SELF ? span({ class: 'me' }, name) : name,
+          ]),
+          '. ',
+        ),
+        item.title,
+        ' ',
+        item.venue,
+        item.id
+          ? [
+              ' ',
+              item.href
+                ? a({ href: item.href, target: '_blank', rel: 'noopener' }, item.id)
+                : item.id,
+            ]
+          : null,
+      ),
+    ),
   );
 }

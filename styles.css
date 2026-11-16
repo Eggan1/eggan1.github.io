@@ -68,8 +68,10 @@ body {
 
 .sep {
   color: var(--ink-faint);
-  padding: 0 8px;
+  padding: 0 3px 0 8px;
 }
+
+.nav-item { white-space: nowrap; }
 
 hr {
   height: 0;
@@ -124,6 +126,30 @@ a:hover { text-decoration: underline; }
   font-size: 14px;
   text-align: left;
 }
+
+.citations {
+  margin: 0;
+  padding: 0 0 0 2.4em;
+  list-style: none;
+  counter-reset: citation;
+}
+
+.citations li {
+  position: relative;
+  margin-bottom: 14px;
+  text-align: left;
+  counter-increment: citation;
+}
+
+/* Bracketed number in the margin, so runover lines hang under the text. */
+.citations li::before {
+  content: "[" counter(citation) "]";
+  position: absolute;
+  left: -2.4em;
+  color: var(--ink);
+}
+
+.me { font-weight: 600; }
 
 .points {
   margin: 0 0 16px;
@@ -236,6 +262,12 @@ a:hover { text-decoration: underline; }
     align-items: flex-start;
     gap: 8px;
     padding-top: 34px;
+  }
+
+  /* Stretch, or the nav shrink-wraps its content and overflows the screen. */
+  .nav {
+    align-self: stretch;
+    line-height: 1.9;
   }
 
   .portrait {

@@ -1,10 +1,11 @@
 import type { Page } from './types.ts';
 import { about } from './content/about.ts';
 import { experience, cv } from './content/experience.ts';
+import { publications } from './content/research.ts';
 import { teaching } from './content/teaching.ts';
 import { adviceEmpty, articles } from './content/advice.ts';
 import {
-  articleView, block, contactBlock, experienceList, page, prose, resourceList,
+  articleView, block, contactBlock, experienceList, page, prose, publicationList, resourceList,
 } from './lib/components.ts';
 import { a, figure, img, p } from './lib/html.ts';
 
@@ -21,6 +22,15 @@ const home: Page = {
         about.paragraphs.map((paragraph) => p({}, prose(paragraph))),
       ),
       contactBlock(),
+    ),
+};
+
+const researchPage: Page = {
+  route: 'research',
+  title: 'Research',
+  render: () =>
+    page('/research',
+      block('research', 'Preprints & Manuscripts', publicationList(publications)),
     ),
 };
 
@@ -71,6 +81,7 @@ const articlePages: readonly Page[] = articles.map((article) => ({
 
 export const pages: readonly Page[] = [
   home,
+  researchPage,
   experiencePage,
   teachingPage,
   advicePage,

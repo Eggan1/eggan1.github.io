@@ -81,6 +81,18 @@ export interface List {
 /** Articles are built from paragraphs and lists. */
 export type Block = Prose | List;
 
+/** One entry in the publication list, written as it should read. */
+export interface Publication {
+  /** Abbreviated author names in order, e.g. `Y. Zhang`. */
+  readonly authors: readonly string[];
+  readonly title: string;
+  /** e.g. `Preprint, 2026.` */
+  readonly venue: string;
+  /** e.g. `arXiv:2610.24364`; linked when `href` is given. */
+  readonly id?: string;
+  readonly href?: string;
+}
+
 export interface Article {
   /** Clean URL path, e.g. `advice/breaking-into-research` (no extension). */
   readonly route: string;

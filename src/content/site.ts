@@ -5,6 +5,7 @@ export const site: SiteConfig = {
   lang: 'en',
   nav: [
     { label: 'About', href: '/' },
+    { label: 'Research', href: '/research' },
     { label: 'Experience', href: '/experience' },
     { label: 'Teaching', href: '/teaching' },
     { label: 'Advice', href: '/advice' },
